@@ -52,4 +52,4 @@ amixer set Headphone 65%
 aplay /usr/share/sounds/alsa/Front_Center.wav
 
 # create upload dir
-mkdir ~/pixiebox/audio/upload
+mkdir -p ~/pixiebox/audio/upload
