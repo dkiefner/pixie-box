@@ -30,6 +30,13 @@ chmod +x ~/pixiebox/scripts/test-setup.sh; ~/pixiebox/scripts/test-setup.sh
 ```
 
 ## Usage
+
+### Create new RFID tags with audio
+To create a new RFID tag and associate audio files with it, do the following:
+- copy all audio files into `~/pixiebox/audio/upload` on teh Raspberry Pi (e.g. using `scp`)
+- run the following script: `python3 ~/pixiebox/scripts/new_tag.py`
+
+### Run the player script and listen for RFID tags
 For now, it is required to start the program manually (there will be a service setup provided soon):
 ```commandline
 python3 ~/pixiebox/src/pixiebox.py
