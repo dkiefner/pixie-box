@@ -21,7 +21,7 @@ cd; wget https://github.com/dkiefner/pixiebox/archive/refs/heads/main.zip; unzip
 
 Run the installation script:
 ```commandline
-chmod +x ~/pixiebox/scripts/install.sh; ~/pixiebox/scripts/install.sh
+chmod +x ~/pixiebox/scripts/install.sh; sudo ~/pixiebox/scripts/install.sh
 ```
 
 ## Usage

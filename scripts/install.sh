@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# change user to root
-sudo -i
-
 # change locale to US
 raspi-config nonint do_change_locale en_US.UTF-8
 
@@ -48,9 +45,6 @@ media_dirs =
 systemctl enable mopidy
 systemctl start mopidy
 systemctl status mopidy
-
-# exit root user
-exit
 
 # set volume to 65%
 amixer set Headphone 65%
