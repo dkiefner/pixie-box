@@ -22,7 +22,7 @@ try:
         print(f"{rfidDir} already exists. Please delete directory manually and retry!")
     else:
         print(f"Creating dir {rfidDir}")
-        os.mkdir(rfidDir)
+        os.mkdir(newDir)
 
         print(f"Moving files from {uploadDir} to {rfidDir}")
         allfiles = os.listdir(uploadDir)
