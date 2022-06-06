@@ -1,4 +1,4 @@
-# pixie-box
+# PixieBox
 An RFID based music player inspired by the [Phoniebox](https://github.com/MiczFlor/RPi-Jukebox-RFID).
 
 ## The Goal
@@ -21,13 +21,13 @@ cd; wget https://github.com/dkiefner/pixiebox/archive/refs/heads/main.zip; unzip
 
 Run the installation script:
 ```commandline
-~/pixie-box/scripts/install.sh
+~/pixiebox/scripts/install.sh
 ```
 
 ## Usage
 For now, it is required to start the program manually (there will be a service setup provided soon):
 ```commandline
-python3 ~/pixie-box/src/pixiebox.py
+python3 ~/pixiebox/src/pixiebox.py
 ```
 
-This will run the Pixie-Box in an endless loop. To stop it, press `Ctrl + C` (which will kill the current running script).
+This will run the PixieBox in an endless loop. To stop it, press `Ctrl + C` (which will kill the current running script).
