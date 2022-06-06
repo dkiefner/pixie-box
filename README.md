@@ -12,16 +12,11 @@ The goal is to strip down the complex setup to very specific needs and requireme
 - Mifare RFID chips/tags (13.56 Mhz)
 
 ## Setup
-After installing the Pi OS and booting up the pi, the following steps are needed:
+After installing the Pi OS and booting up the Pi, the following steps are needed:
 
-Install Git:
+Download this repository:
 ```commandline
-sudo apt install -y git
-```
-
-Clone this repository (preferably into your home folder):
-```commandline
-git clone git@github.com:dkiefner/pixie-box.git
+cd; wget https://github.com/dkiefner/pixiebox/archive/refs/heads/main.zip; unzip main.zip; rm main.zip; mv pixiebox-main pixiebox
 ```
 
 Run the installation script:
