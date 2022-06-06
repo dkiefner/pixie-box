@@ -14,7 +14,7 @@ try:
 
     chip_id, _ = reader.read()
     print(f"chip_id={chip_id}")
-    rfidDir = f"/home/pi/pixiebox/audio/rfid/{chip_id}"
+    rfidDir = f"/home/pi/pixiebox/audio/rfid/{chip_id}/"
 
     print("Checking if directory already exists...")
     newDir = pathlib.Path(rfidDir)
