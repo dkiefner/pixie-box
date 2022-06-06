@@ -12,7 +12,7 @@ player = LocalFilePlayer()
 try:
     while True:
         Logger.log("Waiting for RFID chip...")
-        chip_id = reader.read()
+        chip_id, _ = reader.read()
         Logger.log(f"id={chip_id}")
 
         if chip_id == 702576266227:
