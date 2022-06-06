@@ -13,5 +13,5 @@ class LocalFilePlayer(Player):
     def play(self, uri):
         super().play(uri)
         os.system("mpc -q clear")
-        os.system(f"mpc -q add Files/{uri}")
+        os.system(f"mpc -q add Files/rfid/{uri}")
         os.system("mpc -q play")

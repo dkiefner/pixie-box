@@ -51,5 +51,6 @@ amixer set Headphone 65%
 # play some sound to check if sound out works
 aplay /usr/share/sounds/alsa/Front_Center.wav
 
-# create upload dir
+# create directories needed
+mkdir -p ~/pixiebox/audio/rfid
 mkdir -p ~/pixiebox/audio/upload
