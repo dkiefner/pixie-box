@@ -1,24 +1,5 @@
 #!/bin/bash
 
-# helpers:
-# mopidy logs
-# sudo journalctl -u mopidy
-#
-# restart mopidy
-# sudo systemctl restart mopidy
-#
-# mpc list all
-# mpc ls
-#
-# mpc list all in a given target
-# mpc list "Files"
-#
-# mpc add to playlist
-# mpc list add file:///home/pi/pixiebox/audio/test.mp3
-#
-# mpc commands
-# mpc [play, stop, current]
-
 # change user to root
 sudo -i
 
