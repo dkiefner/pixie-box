@@ -24,6 +24,11 @@ Run the installation script:
 chmod +x ~/pixiebox/scripts/install.sh; sudo ~/pixiebox/scripts/install.sh
 ```
 
+Test if everything is set up correct (hint: you should hear piano music playing):
+```commandline
+chmod +x ~/pixiebox/scripts/test-setup.sh; ~/pixiebox/scripts/test-setup.sh
+```
+
 ## Usage
 For now, it is required to start the program manually (there will be a service setup provided soon):
 ```commandline
