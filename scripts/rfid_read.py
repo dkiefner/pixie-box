@@ -7,7 +7,7 @@ reader = SimpleMFRC522()
 
 try:
     print("Waiting for RFID chip...")
-    chip_id = reader.read()
+    chip_id, _ = reader.read()
     print(chip_id)
 finally:
     GPIO.cleanup()
