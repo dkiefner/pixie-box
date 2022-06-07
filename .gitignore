@@ -2,3 +2,4 @@
 .idea
 audio/rfid
 src/__pycache__/
+src/system-tag-store.db
