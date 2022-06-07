@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import os
 from logger import Logger
+from shell import Shell
 
 
 class Player:
@@ -12,6 +12,6 @@ class Player:
 class LocalFilePlayer(Player):
     def play(self, uri):
         super().play(uri)
-        os.system("mpc -q clear")
-        os.system(f"mpc -q add Files/rfid/{uri}")
-        os.system("mpc -q play")
+        Shell.execute("mpc -q clear")
+        Shell.execute(f"mpc -q add Files/rfid/{uri}")
+        Shell.execute("mpc -q play")
