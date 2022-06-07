@@ -4,6 +4,10 @@ from logger import Logger
 from shell import Shell
 
 
+class SystemAudioUris:
+    SAD_TROMBONE = "file:///home/pi/pixiebox/audio/system/sad-trombone.wav"
+
+
 class Player:
     def play(self, uri):
         Logger.log(f"Playing {uri}")
