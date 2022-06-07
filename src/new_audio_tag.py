@@ -8,7 +8,7 @@ from src.common.rfid_reader import MFRC522Reader
 
 reader = MFRC522Reader()
 
-Logger.log(f"Move all audio files you want to associate with a RFID tag into the folder {FileSystem.UPLOAD_DIR}")
+Logger.log(f"Move all audio files you want to associate with an RFID tag into the folder {FileSystem.UPLOAD_DIR}")
 Logger.log("Scan your RFID tag now.")
 
 tag_id = reader.read()
