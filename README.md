@@ -14,17 +14,22 @@ The goal is to strip down the complex setup to very specific needs and requireme
 ## Setup
 After installing the Pi OS and booting up the Pi, the following steps are needed:
 
-Download this repository:
+**Download this repository:**  
+One-time download:
 ```commandline
 cd; wget https://github.com/dkiefner/pixiebox/archive/refs/heads/main.zip; unzip main.zip; rm main.zip; mv pixiebox-main pixiebox
 ```
+Developer version (to use `git pull` to get updates from latest `master`):
+```commandline
+cd; sudo apt install -y git; git clone https://github.com/dkiefner/pixiebox.git
+```
 
-Run the installation script:
+**Run the installation script:**
 ```commandline
 chmod +x ~/pixiebox/scripts/install.sh; sudo ~/pixiebox/scripts/install.sh
 ```
 
-Test if everything is set up correct (hint: you should hear piano music playing):
+**Test if everything is set up correct (hint: you should hear piano music playing):**
 ```commandline
 chmod +x ~/pixiebox/scripts/test-setup.sh; ~/pixiebox/scripts/test-setup.sh
 ```
