@@ -3,8 +3,8 @@
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 
-from logger import Logger
-from player import LocalFilePlayer
+from src.common.logger import Logger
+from src.common.player import LocalFilePlayer
 
 reader = SimpleMFRC522()
 player = LocalFilePlayer()

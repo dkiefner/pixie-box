@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
+import os
+import pathlib
+
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
-import pathlib
-import os
 
 reader = SimpleMFRC522()
 uploadDir = "/home/pi/pixiebox/audio/upload/"
