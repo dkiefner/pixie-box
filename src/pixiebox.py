@@ -1,21 +1,13 @@
 #!/usr/bin/env python
 
-import RPi.GPIO as GPIO
-from mfrc522 import SimpleMFRC522
-
-from src.common.logger import Logger
+from src.common.rfid_reader import MFRC522Reader
 from src.common.player import LocalFilePlayer
 
-reader = SimpleMFRC522()
+rfidReader = MFRC522Reader()
 player = LocalFilePlayer()
 
-try:
-    while True:
-        Logger.log("Waiting for RFID chip...")
-        chip_id, _ = reader.read()
-        Logger.log(f"id={chip_id}")
+while True:
+    tag_id = rfidReader.read()
 
-        if chip_id == 702576266227:
-            player.play(chip_id)
-finally:
-    GPIO.cleanup()
+    if tag_id == 702576266227:
+        player.play(tag_id)
