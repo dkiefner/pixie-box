@@ -18,14 +18,16 @@ class Player:
 
 class LocalFilePlayer(Player):
     def play_folder(self, folder_name):
-        super().play_folder(folder_name)
-        self.__play(f"Files/rfid/{folder_name}")
+        uri = f"Files/rfid/{folder_name}"
+        super().play_folder(uri)
+        self.__play(uri)
 
     def play_file(self, file_uri):
         super().play_file(file_uri)
         self.__play(file_uri)
 
-    def __play(self, uri):
+    @staticmethod
+    def __play(uri):
         Shell.execute("mpc -q clear")
         Shell.execute(f"mpc -q add {uri}")
         Shell.execute("mpc -q play")
