@@ -9,17 +9,17 @@ class SystemAudioUris:
 
 
 class Player:
-    def play_folder(self, folder_name):
-        Logger.log(f"Playing folder {folder_name}")
+    def play_rfid(self, tag_id):
+        Logger.log(f"Playing RFID tag {tag_id}")
 
     def play_file(self, file_uri):
         Logger.log(f"Playing file {file_uri}")
 
 
 class LocalFilePlayer(Player):
-    def play_folder(self, folder_name):
-        uri = f"Files/rfid/{folder_name}"
-        super().play_folder(uri)
+    def play_rfid(self, tag_id):
+        uri = f"Files/rfid/{tag_id}"
+        super().play_rfid(uri)
         self.__play(uri)
 
     def play_file(self, file_uri):

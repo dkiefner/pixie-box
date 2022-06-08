@@ -11,7 +11,7 @@ tag_id = rfidReader.read()
 
 tagDir = FileSystem.path(FileSystem.RFID_BASE_DIR, tag_id)
 if tagDir.exists():
-    player.play_folder(tag_id)
+    player.play_rfid(tag_id)
 else:
     player.play_file(SystemAudioUris.SAD_TROMBONE)
 
