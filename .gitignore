@@ -1,5 +1,6 @@
 .DS_Store
 .idea
 audio/rfid
+audio/upload
 __pycache__/
 src/system-tag-store.db
