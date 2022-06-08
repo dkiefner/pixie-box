@@ -3,6 +3,8 @@
 import os
 import pathlib
 
+from common.logger import Logger
+
 
 class FileSystem:
     RFID_BASE_DIR = f"/home/pi/pixiebox/audio/rfid/"
@@ -14,6 +16,8 @@ class FileSystem:
 
     @staticmethod
     def move(source, target):
+        Logger.log(f"Moving files from {source} to {target}")
         allfiles = os.listdir(source)
         for file in allfiles:
+            Logger.log(f"Moving file: {str(file)}")
             os.rename(source + file, target + file)

@@ -22,7 +22,6 @@ else:
     Logger.log(f"Creating dir {rfidDir}")
     os.mkdir(rfidDir)
 
-    Logger.log(f"Moving files from {FileSystem.UPLOAD_DIR} to {rfidDir}")
     FileSystem.move(FileSystem.UPLOAD_DIR, str(rfidDir))
 
 rfidReader.cleanup()
