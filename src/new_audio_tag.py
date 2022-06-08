@@ -23,6 +23,6 @@ else:
     os.mkdir(rfidDir)
 
     Logger.log(f"Moving files from {FileSystem.UPLOAD_DIR} to {rfidDir}")
-    FileSystem.move(FileSystem.UPLOAD_DIR, rfidDir)
+    FileSystem.move(FileSystem.UPLOAD_DIR, str(rfidDir))
 
 rfidReader.cleanup()
