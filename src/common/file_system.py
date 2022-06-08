@@ -16,6 +16,11 @@ class FileSystem:
 
     @staticmethod
     def move(source, target):
+        if source[-1] != '/':
+            source += '/'
+        if target[-1] != '/':
+            target += '/'
+
         Logger.log(f"Moving files from {source} to {target}")
         allfiles = os.listdir(source)
         for file in allfiles:
