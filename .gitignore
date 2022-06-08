@@ -3,4 +3,4 @@
 audio/rfid
 audio/upload
 __pycache__/
-src/system-tag-store.db
+system-tag-store.db
