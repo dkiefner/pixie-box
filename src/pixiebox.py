@@ -7,13 +7,12 @@ from common.rfid_reader import MFRC522Reader
 rfidReader = MFRC522Reader()
 player = LocalFilePlayer()
 
-
 tag_id = rfidReader.read()
 
 tagDir = FileSystem.path(FileSystem.RFID_BASE_DIR, tag_id)
 if tagDir.exists():
-    player.play(tag_id)
+    player.play_folder(tag_id)
 else:
-    player.play(SystemAudioUris.SAD_TROMBONE)
+    player.play_file(SystemAudioUris.SAD_TROMBONE)
 
 rfidReader.cleanup()
