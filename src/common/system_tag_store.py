@@ -2,7 +2,7 @@
 
 import dbm
 
-from src.common.logger import Logger
+from common.logger import Logger
 
 
 class SystemTagStore:

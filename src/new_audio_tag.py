@@ -2,9 +2,9 @@
 
 import os
 
-from src.common.file_system import FileSystem
-from src.common.logger import Logger
-from src.common.rfid_reader import MFRC522Reader
+from common.file_system import FileSystem
+from common.logger import Logger
+from common.rfid_reader import MFRC522Reader
 
 reader = MFRC522Reader()
 

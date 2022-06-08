@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from src.common.rfid_reader import MFRC522Reader
-from src.common.system_tag_store import SystemTagStore
+from common.rfid_reader import MFRC522Reader
+from common.system_tag_store import SystemTagStore
 
 print("Which system action do you want to record?:")
 print("1) Stop playing music")

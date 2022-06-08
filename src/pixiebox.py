@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-from src.common.file_system import FileSystem
-from src.common.player import LocalFilePlayer, SystemAudioUris
-from src.common.rfid_reader import MFRC522Reader
+from common.file_system import FileSystem
+from common.player import LocalFilePlayer, SystemAudioUris
+from common.rfid_reader import MFRC522Reader
 
 rfidReader = MFRC522Reader()
 player = LocalFilePlayer()
