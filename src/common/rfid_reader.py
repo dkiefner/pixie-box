@@ -3,7 +3,7 @@
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 
-from logger import Logger
+from common.logger import Logger
 
 
 class RFIDReader:
