@@ -15,3 +15,5 @@ while True:
         player.play(tag_id)
     else:
         player.play(SystemAudioUris.SAD_TROMBONE)
+
+rfidReader.cleanup()

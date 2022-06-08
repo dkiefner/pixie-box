@@ -23,6 +23,7 @@ while True:
         rfid_tag = rfidReader.read()
         store = SystemTagStore()
         store.save(rfid_tag, keyToCommandDict[input_key])
+        rfidReader.cleanup()
         break
     else:
         print(f"Sorry, {input_key} is not a valid option.")
