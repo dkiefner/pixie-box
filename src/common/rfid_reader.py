@@ -23,8 +23,9 @@ class MFRC522Reader(RFIDReader):
             tag_id = self.reader.read_id()
             Logger.log(f"RFID tag scanned with tag_id={tag_id}")
             return tag_id
-        except:
+        except KeyboardInterrupt:
             self.cleanup()
+            raise
 
     def cleanup(self):
         GPIO.cleanup()
