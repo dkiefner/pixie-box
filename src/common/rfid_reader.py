@@ -20,7 +20,7 @@ class MFRC522Reader(RFIDReader):
 
     def read(self):
         try:
-            tag_id, _ = self.reader.read()
+            tag_id = self.reader.read_id()
             Logger.log(f"RFID tag scanned with tag_id={tag_id}")
             return tag_id
         except:
