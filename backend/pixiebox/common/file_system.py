@@ -3,7 +3,7 @@
 import os
 import pathlib
 
-from app.common.logger import Logger
+from pixiebox.common.logger import Logger
 
 
 class FileSystem:

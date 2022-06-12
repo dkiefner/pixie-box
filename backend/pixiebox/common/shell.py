@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 
-from app.common.logger import Logger
+from pixiebox.common.logger import Logger
 
 
 class Shell:

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from app.common.logger import Logger
-from app.common.shell import Shell
+from pixiebox.common.logger import Logger
+from pixiebox.common.shell import Shell
 
 
 class SystemAudioUris:
