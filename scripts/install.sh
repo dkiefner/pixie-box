@@ -23,4 +23,4 @@ chmod +x ~/pixiebox/scripts/setup_audio.sh; ~/pixiebox/scripts/setup_audio.sh
 mkdir -p ~/pixiebox/audio/rfid
 mkdir -p ~/pixiebox/audio/upload
 
-python3 ~/pixiebox/src/install_complete.py
+python3 ~/pixiebox/backend/install_complete.py
