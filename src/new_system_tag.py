@@ -2,13 +2,14 @@
 
 from common.rfid_reader import MFRC522Reader
 from common.system_tag_store import SystemTagStore
+from common.command import SystemCommand
 
 print("Which system action do you want to record?:")
 print("1) Stop playing music")
 print("\nUse 'q' to exit this script.")
 
 keyToCommandDict = {
-    "1": "mpc -q stop"
+    "1": SystemCommand.STOP.name
 }
 
 while True:

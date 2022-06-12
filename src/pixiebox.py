@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
+from common.command import SystemCommand
 from common.file_system import FileSystem
 from common.logger import Logger
 from common.player import LocalFilePlayer, SystemAudioUris
 from common.rfid_reader import MFRC522Reader
-from common.shell import Shell
 from common.system_tag_store import SystemTagStore
 
 rfidReader = MFRC522Reader()
@@ -21,7 +21,9 @@ else:
     cmd = systemTagStore.get(tag_id)
     if cmd is not None:
         Logger.log(f"System tag id scanned.")
-        Shell.execute(cmd)
+
+        if SystemCommand[cmd] is SystemCommand.STOP:
+            player.stop()
     else:
         Logger.log(f"Tag id not registered.")
         player.play_file(SystemAudioUris.SAD_TROMBONE)

@@ -15,6 +15,9 @@ class Player:
     def play_file(self, file_uri):
         Logger.log(f"Playing file {file_uri}")
 
+    def stop(self):
+        Logger.log(f"Stop playing")
+
 
 class LocalFilePlayer(Player):
     def play_rfid(self, tag_id):
@@ -31,3 +34,6 @@ class LocalFilePlayer(Player):
         Shell.execute("mpc -q clear")
         Shell.execute(f"mpc -q add {uri}")
         Shell.execute("mpc -q play")
+
+    def stop(self):
+        Shell.execute("mpc -q stop")

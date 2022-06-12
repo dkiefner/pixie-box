@@ -12,7 +12,7 @@ class SystemTagStore:
     def save(self, key, value):
         Logger.log(f"Storing {key}={value}")
         with dbm.open(self.__store_path, 'c') as store:
-            store[str(key)] = value
+            store[str(key)] = str(value)
             store.close()
 
     def get(self, key):
