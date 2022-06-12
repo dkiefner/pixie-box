@@ -48,9 +48,9 @@ systemctl status mopidy
 
 # set volume to 65%
 amixer set Headphone 65%
-# play some sound to check if sound out works
-aplay /usr/share/sounds/alsa/Front_Center.wav
 
 # create directories needed
 mkdir -p ~/pixiebox/audio/rfid
 mkdir -p ~/pixiebox/audio/upload
+
+python3 ~/pixiebox/src/install_complete.py
