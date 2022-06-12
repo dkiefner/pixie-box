@@ -13,8 +13,8 @@ apt upgrade -y
 # install python3 + pip
 apt install -y python3-dev python3-pip
 
-# install python spi module and rfid lib
-pip3 install spidev mfrc522
+# install python spi module, rfid lib and text to speech lib
+pip3 install spidev mfrc522 pyttsx3
 
 # install MPEG-4 AAC decoder to play mp3s
 apt install -y gstreamer1.0-plugins-bad
