@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import RPi.GPIO as GPIO
-from common.logger import Logger
+from app.common.logger import Logger
 from mfrc522 import SimpleMFRC522
 
 

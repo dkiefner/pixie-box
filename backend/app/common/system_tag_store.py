@@ -3,7 +3,7 @@
 import dbm
 import os
 
-from common.logger import Logger
+from app.common.logger import Logger
 
 
 class SystemTagStore:

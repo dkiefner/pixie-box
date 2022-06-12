@@ -52,14 +52,14 @@ To create a new RFID tag and associate audio files with it, do the following:
 
 - copy all audio files you want to play for a given RFID tag into `~/pixiebox/audio/upload` on the Raspberry Pi (e.g.
   using `scp` or share the directory using Samba)
-- run the following script: `python3 ~/pixiebox/backend/new_audio_tag.py` and it will do the magic
+- run the following script: `python3 ~/pixiebox/backend/app/new_audio_tag.py` and it will do the magic
 
 ### Create new RFID tags with system actions
 
 To link system actions like stopping the music to an RFID tag, run the following script:
 
 ```commandline
-python3 ~/pixiebox/backend/new_system_tag.py
+python3 ~/pixiebox/backend/app/new_system_tag.py
 ```
 
 ### Run the player script and listen for RFID tags
@@ -67,7 +67,7 @@ python3 ~/pixiebox/backend/new_system_tag.py
 For now, it is required to start the program manually (there will be a service setup provided soon):
 
 ```commandline
-python3 ~/pixiebox/backend/pixiebox.py
+python3 ~/pixiebox/backend/app/pixiebox.py
 ```
 
 This will run the PixieBox in an endless loop. To stop it, press `Ctrl + C` (which will kill the current running script)

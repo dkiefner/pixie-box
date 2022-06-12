@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 
-from common.logger import Logger
+from app.common.logger import Logger
 
 
 class Shell:

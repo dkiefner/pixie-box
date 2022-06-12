@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from common.logger import Logger
-from common.shell import Shell
+from app.common.logger import Logger
+from app.common.shell import Shell
 
 
 class SystemAudioUris:
