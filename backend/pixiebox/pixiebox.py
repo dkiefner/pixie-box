@@ -15,7 +15,7 @@ systemTagStore = SystemTagStore()
 
 
 def exit_handler():
-    print('Shutting down PixieBox!')
+    Logger.log(f"Shutting down PixieBox!")
     rfidReader.cleanup()
 
 
