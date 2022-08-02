@@ -90,11 +90,17 @@ class LocalFilePlayer(Player):
     @staticmethod
     def is_playing():
         current = Shell.execute("mpc current")
+        is_playing = len(current) > 0
+        Logger.log(f"Is playing any context: {is_playing}")
 
-        return len(current) > 0
+        return is_playing
 
     def is_playing_tag(self, tag_id):
-        return self.is_playing() and self.tag_id_to_uri(tag_id) is self.get_last_played_uri()
+        last_played_uri = self.get_last_played_uri()
+        tag_id_as_uri = self.tag_id_to_uri(tag_id)
+        Logger.log(f"Is playing tag with tag_uri={tag_id_as_uri} and last_played_uri={last_played_uri}")
+
+        return self.is_playing() and tag_id_as_uri == last_played_uri
 
     def get_last_played_uri(self):
         return self.service_state_store.get(self.KEY_LAST_PLAYED_URI)
