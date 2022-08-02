@@ -1,0 +1,11 @@
+[Unit]
+Description=PixieBox music player service
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/python3 /home/pi/pixiebox/backend/pixiebox/pixiebox.py
+
+[Install]
+WantedBy=multi-user.target

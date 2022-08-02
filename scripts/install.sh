@@ -23,4 +23,7 @@ chmod +x ~/pixiebox/scripts/setup_audio.sh; ~/pixiebox/scripts/setup_audio.sh
 mkdir -p ~/pixiebox/audio/rfid
 mkdir -p ~/pixiebox/audio/upload
 
+# copy service file to make the PixieBox reader run using systemd
+cp ~/pixiebox/backend/pixiebox.service /etc/systemd/system/
+
 python3 ~/pixiebox/backend/pixiebox/install_complete.py
