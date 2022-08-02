@@ -6,10 +6,14 @@ from common.command import SystemCommand
 
 print("Which system action do you want to record?:")
 print("1) Stop playing music")
+print("2) Volume up")
+print("3) Volume down")
 print("\nUse 'q' to exit this script.")
 
 keyToCommandDict = {
-    "1": SystemCommand.STOP.name
+    "1": SystemCommand.STOP.name,
+    "2": SystemCommand.VOLUME_UP.name,
+    "3": SystemCommand.VOLUME_DOWN.name
 }
 
 while True:
