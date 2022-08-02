@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import atexit
+
 from common.command import SystemCommand
 from common.file_system import FileSystem
 from common.logger import Logger
@@ -11,21 +13,31 @@ rfidReader = MFRC522Reader()
 player = LocalFilePlayer()
 systemTagStore = SystemTagStore()
 
-tag_id = rfidReader.read()
 
-tagDir = FileSystem.path(FileSystem.RFID_BASE_DIR, tag_id)
-if tagDir.exists():
-    Logger.log(f"Audio tag id scanned.")
-    player.play_rfid(tag_id)
-else:
-    cmd = systemTagStore.get(tag_id)
-    if cmd is not None:
-        Logger.log(f"System tag id scanned.")
+def exit_handler():
+    print('Shutting down PixieBox!')
+    rfidReader.cleanup()
 
-        if SystemCommand[cmd] is SystemCommand.STOP:
-            player.stop()
+
+def read():
+    tag_id = rfidReader.read()
+
+    tag_dir = FileSystem.path(FileSystem.RFID_BASE_DIR, tag_id)
+    if tag_dir.exists():
+        Logger.log(f"Audio tag id scanned.")
+        player.play_rfid(tag_id)
     else:
-        Logger.log(f"Tag id not registered.")
-        player.play_file(SystemAudioUris.SAD_TROMBONE)
+        cmd = systemTagStore.get(tag_id)
+        if cmd is not None:
+            Logger.log(f"System tag id scanned.")
 
-rfidReader.cleanup()
+            if SystemCommand[cmd] is SystemCommand.STOP:
+                player.stop()
+        else:
+            Logger.log(f"Tag id not registered.")
+            player.play_file(SystemAudioUris.SAD_TROMBONE)
+
+
+atexit.register(exit_handler)
+
+read()
