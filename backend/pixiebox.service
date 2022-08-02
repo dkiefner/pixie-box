@@ -5,7 +5,7 @@ After=multi-user.target
 [Service]
 Type=simple
 Restart=always
-ExecStart=/usr/bin/python3 /home/pi/pixiebox/backend/pixiebox/pixiebox.py
+ExecStart=/usr/bin/python3 -u /home/pi/pixiebox/backend/pixiebox/pixiebox.py
 StandardError=journal
 StandardOutput=journal
 StandardInput=null
