@@ -27,11 +27,7 @@ def read():
     tag_dir = FileSystem.path(FileSystem.RFID_BASE_DIR, tag_id)
     if tag_dir.exists():
         Logger.log("Audio tag id scanned.")
-
-        if player.is_playing_tag(tag_id):
-            Logger.log("The current context is already playing.")
-        else:
-            player.play_rfid(tag_id)
+        player.play_rfid(tag_id)
     else:
         cmd = systemTagStore.get(tag_id)
         if cmd is not None:

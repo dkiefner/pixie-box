@@ -42,10 +42,13 @@ class LocalFilePlayer(Player):
         self.__play(file_uri)
 
     def __play(self, uri):
-        Shell.execute("mpc -q clear")
-        Shell.execute(f"mpc -q add {uri}")
-        Shell.execute("mpc -q play")
-        self.service_state_store.save(self.KEY_LAST_PLAYED_URI, uri)
+        if self.is_playing(uri=uri):
+            Logger.log("The current context is already playing.")
+        else:
+            Shell.execute("mpc -q clear")
+            Shell.execute(f"mpc -q add {uri}")
+            Shell.execute("mpc -q play")
+            self.service_state_store.save(self.KEY_LAST_PLAYED_URI, uri)
 
     def stop(self):
         Shell.execute("mpc -q stop")
@@ -87,20 +90,17 @@ class LocalFilePlayer(Player):
         else:
             Logger.log(f"Invalid volume of [{level}]. The volume level needs to be between 0 and 100.")
 
-    @staticmethod
-    def is_playing():
+    def is_playing(self, uri=None):
         current = Shell.execute("mpc current")
         is_playing = len(current) > 0
         Logger.log(f"Is playing any context: {is_playing}")
 
-        return is_playing
-
-    def is_playing_tag(self, tag_id):
-        last_played_uri = self.get_last_played_uri()
-        tag_id_as_uri = self.tag_id_to_uri(tag_id)
-        Logger.log(f"Is playing tag with tag_uri={tag_id_as_uri} and last_played_uri={last_played_uri}")
-
-        return self.is_playing() and tag_id_as_uri == last_played_uri
+        if uri is None:
+            return is_playing
+        else:
+            last_played_uri = self.get_last_played_uri()
+            Logger.log(f"Is playing uri={uri} (last_played_uri={last_played_uri})")
+            return is_playing and uri == last_played_uri
 
     def get_last_played_uri(self):
         return self.service_state_store.get(self.KEY_LAST_PLAYED_URI)
