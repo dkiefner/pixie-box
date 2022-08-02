@@ -69,7 +69,7 @@ class LocalFilePlayer(Player):
     @staticmethod
     def __get_volume():
         level = Shell.execute(
-            "amixer sget Headphone | awk -F 'Playback|[][]' 'BEGIN {RS=""}{ print substr($5, 1, length($5)-1) }'")
+            "amixer sget Headphone | awk -F 'Playback|[][]' 'BEGIN {RS=\"\"}{ print substr($5, 1, length($5)-1) }'")
         return int(level)
 
     @staticmethod
