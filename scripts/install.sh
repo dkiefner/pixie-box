@@ -23,13 +23,5 @@ chmod +x ~/pixiebox/scripts/setup_audio.sh; ~/pixiebox/scripts/setup_audio.sh
 mkdir -p ~/pixiebox/audio/rfid
 mkdir -p ~/pixiebox/audio/upload
 
-# create a link for the service file to make the PixieBox reader run using systemd
-ln -s /home/pi/pixiebox/backend/pixiebox.service /etc/systemd/system/pixiebox.service
-
-# enable and start the PixieBox reader service
-systemctl daemon-reload
-systemctl enable pixiebox.service
-systemctl start pixiebox.service
-
 # feedback that the installation is complete
 python3 ~/pixiebox/backend/pixiebox/install_complete.py
