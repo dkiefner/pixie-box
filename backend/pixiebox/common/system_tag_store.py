@@ -17,6 +17,6 @@ class SystemTagStore:
 
     def get(self, key):
         with dbm.open(self.__store_path, 'r') as store:
-            value = store.get(str(key))
+            value = store.get(str(key)).decode()
             store.close()
             return value
