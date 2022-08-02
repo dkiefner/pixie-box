@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import RPi.GPIO as GPIO
-from pixiebox.common.logger import Logger
+from common.logger import Logger
 from mfrc522 import SimpleMFRC522
 
 

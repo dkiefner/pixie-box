@@ -3,7 +3,7 @@
 import dbm
 import os
 
-from pixiebox.common.logger import Logger
+from common.logger import Logger
 
 
 class SystemTagStore:
