@@ -86,3 +86,58 @@ scp -r ~/Downloads/pixiebox-audio <pi-user>@<pi-ip>:~/pixiebox/audio/upload/
 
 Note: It is important to use the `-r` parameter to move every file in a directory to its destination as all as having
 no `/` at the end of the first path. Adding a `/` would transfer the folder instead of all the files within that folder.
+
+### Run as a service
+The PixieBox reader can be run as a service in the background. If enabled, it will also make sure the service is up and 
+running after every restart of the Pi.
+
+#### Install the service
+To install and start the service as a systemd service, run the following command:
+
+```commandline
+chmod +x ~/pixiebox/scripts/install-service.sh; sudo ~/pixiebox/scripts/install-service.sh
+```
+
+After executing the script, run the following command to check if service is up and running:
+
+```commandline
+sudo systemctl status pixiebox.service
+```
+
+This should print something like the following:
+```commandline
+● pixiebox.service - PixieBox music player service
+     Loaded: loaded (/home/pi/pixiebox/backend/pixiebox.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2022-08-02 12:51:08 CEST; 6min ago
+   Main PID: 1299 (python3)
+      Tasks: 1 (limit: 4164)
+        CPU: 6min 38.289s
+     CGroup: /system.slice/pixiebox.service
+             └─1299 /usr/bin/python3 /home/pi/pixiebox/backend/pixiebox/pixiebox.py
+```
+
+The important part to look for in the output is `Active: active (running)`.
+
+#### Start and stop the service
+The service can be stopped and started manually. This is needed if one want to run other scripts that want to use the
+RFID reader like create a new tag. Remember to start teh service again after you finished with the other script.
+
+To stop the service run the following command:
+```commandline
+sudo systemctl stop pixiebox.service
+```
+
+To start the service run:
+```commandline
+sudo systemctl start pixiebox.service
+```
+
+#### Service logs
+When running the PixieBox as a service, all stdout and stderr will be logged to the journal instead of the terminal.
+
+To see the journal logs, run the following command:
+```commandline
+sudo journalctl --unit=pixiebox
+```
+
+To see live updates of the journal, add the parameter `-f` to "follow" the log.
