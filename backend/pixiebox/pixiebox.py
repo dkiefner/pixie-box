@@ -40,4 +40,5 @@ def read():
 
 atexit.register(exit_handler)
 
-read()
+while True:
+    read()
