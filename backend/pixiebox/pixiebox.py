@@ -30,7 +30,7 @@ def read():
     else:
         cmd = systemTagStore.get(tag_id)
         if cmd is not None:
-            Logger.log(f"System tag id scanned.")
+            Logger.log(f"System tag id scanned for command: {cmd}")
 
             if SystemCommand[cmd] is SystemCommand.STOP:
                 player.stop()
