@@ -19,9 +19,13 @@ class BaseStore:
 
     def get(self, key):
         with dbm.open(self.__store_path, 'r') as store:
-            value = store.get(str(key)).decode()
+            value = store.get(str(key))
             store.close()
-            return value
+
+            if value is not None:
+                return value.decode()
+            else:
+                return value
 
 
 class ServiceStateStore(BaseStore):
