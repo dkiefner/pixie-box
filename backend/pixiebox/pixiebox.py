@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import atexit
+import time
 
 from common.command import SystemCommand
 from common.file_system import FileSystem
@@ -44,3 +45,5 @@ Logger.log(f"PixieBox started!")
 
 while True:
     read()
+    # throttle rfid reads to once per second
+    time.sleep(1)
