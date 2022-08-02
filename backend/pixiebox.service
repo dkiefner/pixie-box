@@ -9,6 +9,8 @@ ExecStart=/usr/bin/python3 -u /home/pi/pixiebox/backend/pixiebox/pixiebox.py
 StandardError=journal
 StandardOutput=journal
 StandardInput=null
+KillSignal=SIGINT
+TimeoutStopSec=2
 
 [Install]
 WantedBy=multi-user.target
