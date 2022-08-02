@@ -6,8 +6,10 @@ import os
 from common.logger import Logger
 
 
-class SystemTagStore:
-    __store_path = os.path.join("/home/pi/pixiebox", "system-tag-store")
+class BaseStore:
+
+    def __init__(self, path, name):
+        self.__store_path = os.path.join(path, name)
 
     def save(self, key, value):
         Logger.log(f"Storing {key}={value}")
@@ -20,3 +22,15 @@ class SystemTagStore:
             value = store.get(str(key)).decode()
             store.close()
             return value
+
+
+class ServiceStateStore(BaseStore):
+
+    def __init__(self):
+        BaseStore.__init__(self, "/home/pi/pixiebox", "service-state-store")
+
+
+class SystemTagStore(BaseStore):
+
+    def __init__(self):
+        BaseStore.__init__(self, "/home/pi/pixiebox", "system-tag-store")

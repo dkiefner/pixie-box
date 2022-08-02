@@ -20,24 +20,32 @@ class Player:
 
 
 class LocalFilePlayer(Player):
+    KEY_LAST_PLAYED_URI = "last-played-uri"
     VOLUME_MIN_VALUE = 10
     VOLUME_MAX_VALUE = 100
     VOLUME_CHANGE_VALUE = 10
 
+    def __init__(self, service_state_store):
+        self.service_state_store = service_state_store
+
     def play_rfid(self, tag_id):
-        uri = f"Files/rfid/{tag_id}"
+        uri = self.tag_id_to_uri(tag_id)
         super().play_rfid(uri)
         self.__play(uri)
+
+    @staticmethod
+    def tag_id_to_uri(tag_id):
+        return f"Files/rfid/{tag_id}"
 
     def play_file(self, file_uri):
         super().play_file(file_uri)
         self.__play(file_uri)
 
-    @staticmethod
-    def __play(uri):
+    def __play(self, uri):
         Shell.execute("mpc -q clear")
         Shell.execute(f"mpc -q add {uri}")
         Shell.execute("mpc -q play")
+        self.service_state_store.save(self.KEY_LAST_PLAYED_URI, uri)
 
     def stop(self):
         Shell.execute("mpc -q stop")
@@ -78,3 +86,15 @@ class LocalFilePlayer(Player):
             Shell.execute(f"amixer set Headphone {level}%")
         else:
             Logger.log(f"Invalid volume of [{level}]. The volume level needs to be between 0 and 100.")
+
+    @staticmethod
+    def is_playing():
+        current = Shell.execute("mpc current")
+
+        return len(current) > 0
+
+    def is_playing_tag(self, tag_id):
+        return self.is_playing() and self.tag_id_to_uri(tag_id) is self.get_last_played_uri()
+
+    def get_last_played_uri(self):
+        return self.service_state_store.get(self.KEY_LAST_PLAYED_URI)
