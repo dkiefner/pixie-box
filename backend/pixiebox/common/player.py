@@ -74,7 +74,7 @@ class LocalFilePlayer(Player):
 
     @staticmethod
     def __set_volume(level):
-        if 0 <= level >= 100:
+        if 0 <= level <= 100:
             Shell.execute(f"amixer set Headphone {level}%")
         else:
             Logger.log(f"Invalid volume of [{level}]. The volume level needs to be between 0 and 100.")
