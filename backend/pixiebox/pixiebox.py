@@ -40,5 +40,7 @@ def read():
 
 atexit.register(exit_handler)
 
+Logger.log(f"PixieBox started!")
+
 while True:
     read()
