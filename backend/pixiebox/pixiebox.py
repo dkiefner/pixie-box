@@ -17,7 +17,7 @@ player = LocalFilePlayer(serviceStateStore)
 
 
 def exit_handler():
-    Logger.log(f"Shutting down PixieBox!")
+    Logger.log("Shutting down PixieBox!")
     rfidReader.cleanup()
 
 
@@ -40,13 +40,13 @@ def read():
             elif SystemCommand[cmd] is SystemCommand.VOLUME_DOWN:
                 player.volume_down()
         else:
-            Logger.log(f"Tag id not registered.")
+            Logger.log("Tag id not registered.")
             player.play_file(SystemAudioUris.SAD_TROMBONE)
 
 
 atexit.register(exit_handler)
 
-Logger.log(f"PixieBox started!")
+Logger.log("PixieBox started!")
 
 while True:
     read()

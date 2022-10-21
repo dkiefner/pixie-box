@@ -16,7 +16,7 @@ class Player:
         Logger.log(f"Playing file {file_uri}")
 
     def stop(self):
-        Logger.log(f"Stop playing")
+        Logger.log("Stop playing")
 
 
 class LocalFilePlayer(Player):
