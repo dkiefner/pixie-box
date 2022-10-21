@@ -1,0 +1,16 @@
+[Unit]
+Description=Shutdown the system on button press
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/python3 -u /home/pi/pixiebox/backend/pixiebox/shutdown_system_with_button.py
+StandardError=journal
+StandardOutput=journal
+StandardInput=null
+KillSignal=SIGINT
+TimeoutStopSec=2
+
+[Install]
+WantedBy=multi-user.target
