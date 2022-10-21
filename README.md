@@ -154,7 +154,8 @@ To see live updates of the journal, add the parameter `-f` to "follow" the log.
 
 To use a button for turning the Raspberry Pi on and off, wire the button up on `GPIO3` and `GND`. Turning on the
 Raspberry Pi will be handled by the Raspberry Pi itself, there is no more work needed. To turn the Raspberry Pi off a
-software solution is necessary.
+software solution is necessary. Even though the Raspberry PI is shutdown properly, the red light on the Raspberry Pi is
+still on. The red light only indicates that the Raspberry Pi is receiving enough power.
 
 #### Install the service
 
