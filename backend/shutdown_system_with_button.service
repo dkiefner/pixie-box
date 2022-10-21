@@ -1,5 +1,5 @@
 [Unit]
-Description=Shutdown the system on button press
+Description=Shutting down system on button press service
 After=multi-user.target
 
 [Service]
