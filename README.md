@@ -11,7 +11,7 @@ The goal is to strip down the complex setup to very specific needs and requireme
 
 ## Hardware
 
-- Raspberry Pi (3/4)
+- Raspberry Pi 4
 - RC522 RFID reader (13.56 Mhz)
 - Mifare RFID chips/tags (13.56 Mhz)
 
