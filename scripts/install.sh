@@ -20,8 +20,8 @@ pip3 install spidev mfrc522 pyttsx3
 chmod +x ~/pixiebox/scripts/setup_audio.sh; ~/pixiebox/scripts/setup_audio.sh
 
 # create needed directories
-mkdir -p ~/pixiebox/audio/rfid
-mkdir -p ~/pixiebox/audio/upload
+mkdir -p ~/pixiebox/data/audio/rfid
+mkdir -p ~/pixiebox/data/audio/upload
 
 # feedback that the installation is complete
 python3 ~/pixiebox/scripts/install_complete_message.py

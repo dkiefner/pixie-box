@@ -50,7 +50,7 @@ chmod +x ~/pixiebox/scripts/test-setup.sh; ~/pixiebox/scripts/test-setup.sh
 
 To create a new RFID tag and associate audio files with it, do the following:
 
-- copy all audio files you want to play for a given RFID tag into `~/pixiebox/audio/upload` on the Raspberry Pi (e.g.
+- copy all audio files you want to play for a given RFID tag into `~/pixiebox/data/audio/upload` on the Raspberry Pi (e.g.
   using `scp` or share the directory using Samba)
 - run the following script: `python3 ~/pixiebox/app/service/new_audio_tag.py` and it will do the magic
 
@@ -81,7 +81,7 @@ replace `<pi-user>` with the actual username you used to set up the Raspberry Pi
 with the ip address of the Raspberry Pi in the local network (e.g. `192.168.0.1`):
 
 ```commandline
-scp -r ~/Downloads/pixiebox-audio <pi-user>@<pi-ip>:~/pixiebox/audio/upload/
+scp -r ~/Downloads/pixiebox-audio <pi-user>@<pi-ip>:~/pixiebox/data/audio/upload/
 ```
 
 Note: It is important to use the `-r` parameter to move every file in a directory to its destination as all as having
