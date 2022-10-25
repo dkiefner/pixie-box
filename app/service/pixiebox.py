@@ -3,12 +3,12 @@
 import atexit
 import time
 
-from common.command import SystemCommand
-from common.file_system import FileSystem
-from common.logger import Logger
-from common.player import LocalFilePlayer, SystemAudioUris
-from common.rfid_reader import MFRC522Reader
-from common.store import *
+from lib.command import SystemCommand
+from lib.file_system import FileSystem
+from lib.logger import Logger
+from lib.player import LocalFilePlayer, SystemAudioUris
+from lib.rfid_reader import MFRC522Reader
+from lib.store import *
 
 rfidReader = MFRC522Reader()
 systemTagStore = SystemTagStore()

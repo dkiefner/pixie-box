@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # create a link for the service file to make the PixieBox reader run using systemd
-ln -s /home/pi/pixiebox/backend/pixiebox.service /etc/systemd/system/pixiebox.service
+ln -s /home/pi/pixiebox/app/service.service /etc/systemd/system/pixiebox.service
 
 # enable and start the PixieBox reader service
 systemctl daemon-reload

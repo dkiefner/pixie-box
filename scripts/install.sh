@@ -24,4 +24,4 @@ mkdir -p ~/pixiebox/audio/rfid
 mkdir -p ~/pixiebox/audio/upload
 
 # feedback that the installation is complete
-python3 ~/pixiebox/backend/pixiebox/install_complete.py
+python3 ~/pixiebox/scripts/install_complete_message.py
