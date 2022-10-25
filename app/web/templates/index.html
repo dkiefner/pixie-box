@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href='/static/style.css'/>
+    <title>Pixiebox</title>
+</head>
+<body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+        $(function() {
+          $('a#shutdown').on('click', function(e) {
+            e.preventDefault()
+            $.getJSON('/shutdown_system',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+</script>
+
+<h1>My website</h1>
+
+<ul id="rfids">
+    {% for item in rfids %}
+    <li>{{ item }}</a></li>
+    {% endfor %}
+</ul>
+
+<form>
+    <a href=# id=shutdown>
+        <button class='button'>Shutdown</button>
+    </a>
+</form>
+
+</body>
+</html>

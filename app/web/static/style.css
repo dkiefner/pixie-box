@@ -1,0 +1,41 @@
+:root {
+    --color-background: #27272c;
+    --color-on-background: #c5c5ce;
+    --color-blue: #00bbcb;
+    --color-on-blue: #004a09;
+    --color-yellow: #dedf40;
+    --color-green: #62cb5c;
+    --brand-font: "Kanit",serif;
+    --brand-font-weight: 800;
+}
+
+body {
+    background: var(--color-background);
+    color: var(--color-on-background);
+    font-family: system-ui,sans-serif;
+    font-size: 1.15rem;
+}
+
+.button {
+    --button-background: var(--color-blue)
+    --button-color: var(--color-background);
+    --outline-color: transparent;
+    align-items: center;
+    background-color: var(--button-background);
+    border: 2px solid transparent;
+    border-radius: 0.5em;
+    color: var(--button-color);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: var(--brand-font-alt);
+    font-weight: var(--brand-font-alt-weight-bold);
+    gap: 0.5em;
+    justify-content: center;
+    line-height: calc(4px + 2ex);
+    min-width: 10ch;
+    padding: 0.55em 0.75em 0.5em;
+    text-align: center;
+    text-decoration: none;
+    transition: none .18s ease-in-out;
+    transition-property: background-color,color,border-color;
+}
