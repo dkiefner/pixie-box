@@ -10,8 +10,8 @@ raspi-config nonint do_spi 0
 apt update
 apt upgrade -y
 
-# install python3 + pip
-apt install -y python3-dev python3-pip
+# install python3 + pip + libespeak1 (needed for pyttsx3 under linux)
+apt install -y python3-dev python3-pip libespeak1
 
 # install python spi module, rfid lib and text to speech lib
 pip3 install spidev mfrc522 pyttsx3
