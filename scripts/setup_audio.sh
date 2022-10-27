@@ -22,7 +22,7 @@ output = alsasink
 
 [file]
 media_dirs =
-  /home/pi/pixiebox/audio/
+  /home/pi/pixiebox/data/audio/
 " > /etc/mopidy/mopidy.conf
 
 # enable mopidy to run as a service, start it and print status
