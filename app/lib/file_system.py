@@ -3,7 +3,7 @@
 import os
 import pathlib
 
-from common.logger import Logger
+from lib.logger import Logger
 
 
 class FileSystem:

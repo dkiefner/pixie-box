@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import subprocess
 
-from common.logger import Logger
+from lib.logger import Logger
 
 
 class Shell:

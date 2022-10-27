@@ -3,7 +3,7 @@
 import dbm
 import os
 
-from common.logger import Logger
+from lib.logger import Logger
 
 
 class BaseStore:
