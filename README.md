@@ -110,7 +110,7 @@ This should print something like the following:
 
 ```commandline
 ● pixiebox.service - PixieBox music player service
-     Loaded: loaded (/home/pi/pixiebox/app/service.service; enabled; vendor preset: enabled)
+     Loaded: loaded (/home/pi/pixiebox/app/service/pixiebox.service; enabled; vendor preset: enabled)
      Active: active (running) since Tue 2022-08-02 12:51:08 CEST; 6min ago
    Main PID: 1299 (python3)
       Tasks: 1 (limit: 4164)
