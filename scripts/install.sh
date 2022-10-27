@@ -23,5 +23,8 @@ chmod +x ~/pixiebox/scripts/setup_audio.sh; ~/pixiebox/scripts/setup_audio.sh
 mkdir -p ~/pixiebox/data/audio/rfid
 mkdir -p ~/pixiebox/data/audio/upload
 
+# add the app directory as a root module for python
+echo 'PYTHONPATH="/home/pi/pixiebox/app"' >> /etc/profile
+
 # feedback that the installation is complete
 python3 ~/pixiebox/scripts/install_complete_message.py
