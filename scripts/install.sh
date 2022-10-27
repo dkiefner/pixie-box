@@ -20,8 +20,11 @@ pip3 install spidev mfrc522 pyttsx3
 chmod +x ~/pixiebox/scripts/setup_audio.sh; ~/pixiebox/scripts/setup_audio.sh
 
 # create needed directories
-mkdir -p ~/pixiebox/audio/rfid
-mkdir -p ~/pixiebox/audio/upload
+mkdir -p ~/pixiebox/data/audio/rfid
+mkdir -p ~/pixiebox/data/audio/upload
+
+# add the app directory as a root module for python
+echo 'export PYTHONPATH="/home/pi/pixiebox/app"' >> /etc/profile
 
 # feedback that the installation is complete
-python3 ~/pixiebox/backend/pixiebox/install_complete.py
+python3 ~/pixiebox/scripts/install_complete_message.py

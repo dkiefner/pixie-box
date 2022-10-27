@@ -5,12 +5,13 @@ After=multi-user.target
 [Service]
 Type=simple
 Restart=always
-ExecStart=/usr/bin/python3 -u /home/pi/pixiebox/backend/pixiebox/pixiebox.py
+ExecStart=/usr/bin/python3 -u /home/pi/pixiebox/app/service/pixiebox.py
 StandardError=journal
 StandardOutput=journal
 StandardInput=null
 KillSignal=SIGINT
 TimeoutStopSec=2
+Environment=PYTHONPATH=/home/pi/pixiebox/app
 
 [Install]
 WantedBy=multi-user.target

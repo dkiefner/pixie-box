@@ -2,8 +2,8 @@
 
 import RPi.GPIO as GPIO
 
-from common.logger import Logger
-from common.shell import Shell
+from lib.logger import Logger
+from lib.shell import Shell
 
 GPIO.setwarnings(False)
 

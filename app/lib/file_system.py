@@ -3,12 +3,12 @@
 import os
 import pathlib
 
-from common.logger import Logger
+from lib.logger import Logger
 
 
 class FileSystem:
-    RFID_BASE_DIR = f"/home/pi/pixiebox/audio/rfid/"
-    UPLOAD_DIR = "/home/pi/pixiebox/audio/upload/"
+    RFID_BASE_DIR = f"/home/pi/pixiebox/data/audio/rfid/"
+    UPLOAD_DIR = "/home/pi/pixiebox/data/audio/upload/"
 
     @staticmethod
     def path(base_path, directory):

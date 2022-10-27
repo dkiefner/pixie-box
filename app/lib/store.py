@@ -3,7 +3,7 @@
 import dbm
 import os
 
-from common.logger import Logger
+from lib.logger import Logger
 
 
 class BaseStore:
@@ -31,10 +31,10 @@ class BaseStore:
 class ServiceStateStore(BaseStore):
 
     def __init__(self):
-        BaseStore.__init__(self, "/home/pi/pixiebox", "service-state-store")
+        BaseStore.__init__(self, "/home/pi/pixiebox/data", "service-state-store")
 
 
 class SystemTagStore(BaseStore):
 
     def __init__(self):
-        BaseStore.__init__(self, "/home/pi/pixiebox", "system-tag-store")
+        BaseStore.__init__(self, "/home/pi/pixiebox/data", "system-tag-store")

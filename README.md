@@ -50,16 +50,16 @@ chmod +x ~/pixiebox/scripts/test-setup.sh; ~/pixiebox/scripts/test-setup.sh
 
 To create a new RFID tag and associate audio files with it, do the following:
 
-- copy all audio files you want to play for a given RFID tag into `~/pixiebox/audio/upload` on the Raspberry Pi (e.g.
+- copy all audio files you want to play for a given RFID tag into `~/pixiebox/data/audio/upload` on the Raspberry Pi (e.g.
   using `scp` or share the directory using Samba)
-- run the following script: `python3 ~/pixiebox/backend/pixiebox/new_audio_tag.py` and it will do the magic
+- run the following script: `python3 ~/pixiebox/app/service/new_audio_tag.py` and it will do the magic
 
 ### Create new RFID tags with system actions
 
 To link system actions like stopping the music to an RFID tag, run the following script:
 
 ```commandline
-python3 ~/pixiebox/backend/pixiebox/new_system_tag.py
+python3 ~/pixiebox/app/service/new_system_tag.py
 ```
 
 ### Run the player script and listen for RFID tags
@@ -67,7 +67,7 @@ python3 ~/pixiebox/backend/pixiebox/new_system_tag.py
 For now, it is required to start the program manually (there will be a service setup provided soon):
 
 ```commandline
-python3 ~/pixiebox/backend/pixiebox/pixiebox.py
+python3 ~/pixiebox/app/service/pixiebox.py
 ```
 
 This will run the PixieBox in an endless loop. To stop it, press `Ctrl + C` (which will kill the current running script)
@@ -81,7 +81,7 @@ replace `<pi-user>` with the actual username you used to set up the Raspberry Pi
 with the ip address of the Raspberry Pi in the local network (e.g. `192.168.0.1`):
 
 ```commandline
-scp -r ~/Downloads/pixiebox-audio <pi-user>@<pi-ip>:~/pixiebox/audio/upload/
+scp -r ~/Downloads/pixiebox-audio <pi-user>@<pi-ip>:~/pixiebox/data/audio/upload/
 ```
 
 Note: It is important to use the `-r` parameter to move every file in a directory to its destination as all as having
@@ -110,13 +110,13 @@ This should print something like the following:
 
 ```commandline
 ● pixiebox.service - PixieBox music player service
-     Loaded: loaded (/home/pi/pixiebox/backend/pixiebox.service; enabled; vendor preset: enabled)
+     Loaded: loaded (/home/pi/pixiebox/app/service/pixiebox.service; enabled; vendor preset: enabled)
      Active: active (running) since Tue 2022-08-02 12:51:08 CEST; 6min ago
    Main PID: 1299 (python3)
       Tasks: 1 (limit: 4164)
         CPU: 6min 38.289s
      CGroup: /system.slice/pixiebox.service
-             └─1299 /usr/bin/python3 /home/pi/pixiebox/backend/pixiebox/pixiebox.py
+             └─1299 /usr/bin/python3 /home/pi/pixiebox/app/service/pixiebox.py
 ```
 
 The important part to look for in the output is `Active: active (running)`.
@@ -175,13 +175,13 @@ This should print something like the following:
 
 ```commandline
 ● shutdown_system_with_button.service - Shutdown the system on button press
-     Loaded: loaded (/home/pi/pixiebox/backend/shutdown_system_with_button.service; enabled; vendor preset: enabled)
+     Loaded: loaded (/home/pi/pixiebox/app/service/shutdown_system_with_button.service; enabled; vendor preset: enabled)
      Active: active (running) since Fri 2022-10-21 20:57:17 CEST; 17s ago
    Main PID: 964 (python3)
       Tasks: 1 (limit: 4164)
         CPU: 61ms
      CGroup: /system.slice/shutdown_system_with_button.service
-             └─964 /usr/bin/python3 -u /home/pi/pixiebox/backend/pixiebox/shutdown_system_with_button.py
+             └─964 /usr/bin/python3 -u /home/pi/pixiebox/app/service/shutdown_system_with_button.py
 
 Oct 21 20:57:17 raspberrypi systemd[1]: Started Shutdown the system on button press.
 Oct 21 20:57:17 raspberrypi python3[964]: Waiting for button press...
