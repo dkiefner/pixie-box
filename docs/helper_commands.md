@@ -22,9 +22,9 @@ List all MPD targets in a resource (e.g. Files):
 mpc list "Files"
 ```
 
-Add a target to the current playlist (e.g. test.mp3):
+Add a target to the current playlist (e.g. test-music.wav):
 ```commandline
-mpc list add file:///home/pi/pixiebox/audio/test.mp3
+mpc list add file:///home/pi/pixiebox/audio/system/test-music.wav
 ```
 
 Control the MPD player:
