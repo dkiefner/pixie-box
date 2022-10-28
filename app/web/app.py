@@ -1,6 +1,7 @@
 from flask import Flask, render_template, send_file
 
 from lib.file_system import FileSystem
+from lib.shutdown import Shutdown
 from lib.zip import Zip
 
 app = Flask(__name__)
@@ -23,8 +24,7 @@ def backup():
 
 @app.route('/shutdown_system')
 def shutdown_system():
-    print("shutdown system")
-    return "nothing"
+    Shutdown.halt()
 
 
 @app.route('/export_backup')
