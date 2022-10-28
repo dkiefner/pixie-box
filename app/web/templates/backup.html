@@ -9,7 +9,18 @@
         }
     </script>
 
-    <h1>Export and Import Backup</h1>
+    <h1>Save and Restore Backups</h1>
 
     <a class="btn btn-success" href="{{url_for('export_backup')}}">Create Backup</a>
+
+    {% if msg %}
+    <div>
+        <ul><li>{{ msg }}</li></ul>
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/backup" enctype="multipart/form-data">
+      <p><input type="file" name="backup" placeholder="select the backup file" required></p>
+      <p><input type="submit" value="Restore"></p>
+    </form>
 {% endblock %}
