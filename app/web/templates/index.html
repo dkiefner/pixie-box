@@ -17,5 +17,5 @@
         {% endfor %}
     </ul>
 
-    <input type="button" onclick="shutdown()" value="Shutdown">
+    <input type="button" onclick="{{url_for('shutdown_system')}}" value="Shutdown">
 {% endblock %}

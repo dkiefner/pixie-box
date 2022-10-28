@@ -7,8 +7,11 @@ from lib.logger import Logger
 
 
 class FileSystem:
-    RFID_BASE_DIR = f"/home/pi/pixiebox/data/audio/rfid/"
-    UPLOAD_DIR = "/home/pi/pixiebox/data/audio/upload/"
+    ROOT_DIR = "/home/pi/pixiebox/"
+    DATA_DIR = f"{ROOT_DIR}data/"
+    RFID_BASE_DIR = f"{DATA_DIR}audio/rfid/"
+    UPLOAD_DIR = f"{DATA_DIR}audio/upload/"
+    TEMP_DIR = f"{ROOT_DIR}tmp/"
 
     @staticmethod
     def path(base_path, directory):

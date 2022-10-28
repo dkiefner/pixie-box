@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <script type=text/javascript>
+        function shutdown() {
+            var request = new XMLHttpRequest();
+            request.open("GET", '/shutdown_system', true);
+            request.send();
+        }
+    </script>
 
     <h1>Export and Import Backup</h1>
 
-    <form>
-        <a href=# id=shutdown>
-            <button class='button'>Shutdown</button>
-        </a>
-    </form>
+    <a class="btn btn-success" href="{{url_for('export_backup')}}">Create Backup</a>
 {% endblock %}
