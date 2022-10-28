@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href='/static/style.css'/>
+
+    <head>
+      {% if title %}
+      <title>{{ title }} - Pixiebox</title>
+      {% else %}
+      <title>Welcome to Pixiebox</title>
+      {% endif %}
+    </head>
+    <body>
+        <div><a href="/">Home</a> <a href="/backup">Backup</a></div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>

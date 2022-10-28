@@ -7,6 +7,13 @@ app = Flask(__name__)
 def index():
     return render_template('index.html', rfids=["one", "two"])
 
+@app.route('/backup')
+def backup():
+    return render_template('backup.html')
+
+#https://code-maven.com/flask-upload-multiple-files
+
+# AJAX CTA endpoints
 
 @app.route('/shutdown_system')
 def shutdown_system():
