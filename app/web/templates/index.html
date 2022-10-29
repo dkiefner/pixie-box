@@ -2,18 +2,13 @@
 <html>
     <meta charset="UTF-8">
     <link rel="stylesheet" href='/static/css/style.css'/>
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <head>
       <title>Pixiebox</title>
     </head>
     <body>
-        <script type=text/javascript>
-            function shutdown() {
-                var request = new XMLHttpRequest();
-                request.open("GET", '/shutdown_system', true);
-                request.send();
-            }
-        </script>
 
         <!-- Top Menu -->
         <div class="topnav">
@@ -24,14 +19,21 @@
 
         <h1>Pixiebox</h1>
 
-        <ul id="rfids">
-            {% for item in rfids %}
-            <li>{{ item }}</a></li>
-            {% endfor %}
-        </ul>
+        <button class="btn info" onclick="location.href='/run_system_command?command=VOLUME_DOWN'" type="button">
+            <i class="fa fa-volume-down"></i>
+        </button>
+        <button class="btn info" onclick="location.href='/run_system_command?command=STOP'" type="button">
+            <i class="fa fa-stop"></i>
+        </button>
+        <button class="btn info" onclick="location.href='/run_system_command?command=VOLUME_UP'" type="button">
+            <i class="fa fa-volume-up"></i>
+        </button>
 
-        <form action="/shutdown_system">
-            <input class="btn danger" type="submit" value="Shutdown" />
-        </form>
+        <br />
+        <br />
+
+        <button class="btn danger" onclick="location.href='/run_system_command?command=SHUTDOWN'" type="button">
+            <i class="fa fa-power-off"></i> Shutdown
+        </button>
     </body>
 </html>

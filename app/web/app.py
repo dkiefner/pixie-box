@@ -2,17 +2,22 @@ from flask import Flask, render_template, send_file, request
 
 from lib.command import SystemCommand
 from lib.file_system import FileSystem
+from lib.player import LocalFilePlayer
 from lib.shutdown import Shutdown
+from lib.store import ServiceStateStore
 from lib.zip import Zip
 
 app = Flask(__name__)
 app.config["UPLOAD_DIR"] = FileSystem.UPLOAD_DIR
 
+serviceStateStore = ServiceStateStore()
+player = LocalFilePlayer(serviceStateStore)
+
 
 # css style from: https://moderncss.dev/custom-select-styles-with-pure-css/
 @app.route('/')
 def index():
-    return render_template('index.html', rfids=["one", "two"])
+    return render_template('index.html')
 
 
 @app.route('/backup', methods=["GET", "POST"])
@@ -44,9 +49,22 @@ def assign_tag():
 
 # CTA endpoints
 
-@app.route('/shutdown_system')
-def shutdown_system():
-    Shutdown.halt()
+@app.route('/run_system_command')
+def run_system_command():
+    command = request.args['command']
+
+    if command == SystemCommand.STOP.name:
+        player.stop()
+    elif command == SystemCommand.VOLUME_UP.name:
+        player.volume_up()
+    elif command == SystemCommand.VOLUME_DOWN.name:
+        player.volume_down()
+    elif command == SystemCommand.SHUTDOWN.name:
+        Shutdown.halt()
+    else:
+        return '', 404
+
+    return '', 204
 
 
 @app.route('/export_backup')
