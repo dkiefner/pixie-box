@@ -1,12 +1,14 @@
 <!doctype html>
 <html>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href='/static/style.css'/>
+    <link rel="stylesheet" href='/static/css/style.css'/>
 
     <head>
       <title>Pixiebox</title>
     </head>
     <body>
+        <script src="/static/js/tabs.js" language="JavaScript" type="text/javascript"></script>
+    
         <!-- Top Menu -->
         <div class="topnav">
             <a href="/">Home</a>
@@ -14,28 +16,6 @@
             <a href="/assign_tag" class="active">RFID Tags</a>
         </div>
 
-        <script>
-            function openAssignType(evt, assignType) {
-              // Declare all variables
-              var i, tabcontent, tablinks;
-
-              // Get all elements with class="tabcontent" and hide them
-              tabcontent = document.getElementsByClassName("tabcontent");
-              for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-              }
-
-              // Get all elements with class="tablinks" and remove the class "active"
-              tablinks = document.getElementsByClassName("tablinks");
-              for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-              }
-
-              // Show the current tab, and add an "active" class to the button that opened the tab
-              document.getElementById(assignType).style.display = "block";
-              evt.currentTarget.className += " active";
-            }
-        </script>
         <h1>Adding Content to an RFID Tag</h1>
 
         {% if msg %}
@@ -45,8 +25,8 @@
         {% endif %}
 
         <div class="tab">
-          <button class="tablinks" onclick="openAssignType(event, 'Audio')" id="defaultOpen">Audio</button>
-          <button class="tablinks" onclick="openAssignType(event, 'System')">System</button>
+          <button class="tablinks" onclick="openTab(event, 'Audio')" id="defaultOpen">Audio</button>
+          <button class="tablinks" onclick="openTab(event, 'System')">System</button>
         </div>
 
         <!-- Tab content -->
