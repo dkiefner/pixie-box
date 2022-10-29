@@ -1,6 +1,6 @@
 :root {
     --color-background: #27272c;
-    --color-on-background: #c5c5ce;
+    --color-on-background: #ffffff;
     --color-blue: #00bbcb;
     --color-on-blue: #004a09;
     --color-yellow: #dedf40;
@@ -16,26 +16,88 @@ body {
     font-size: 1.15rem;
 }
 
-.button {
-    --button-background: var(--color-blue)
-    --button-color: var(--color-background);
-    --outline-color: transparent;
-    align-items: center;
-    background-color: var(--button-background);
-    border: 2px solid transparent;
-    border-radius: 0.5em;
-    color: var(--button-color);
-    cursor: pointer;
-    display: inline-flex;
-    font-family: var(--brand-font-alt);
-    font-weight: var(--brand-font-alt-weight-bold);
-    gap: 0.5em;
-    justify-content: center;
-    line-height: calc(4px + 2ex);
-    min-width: 10ch;
-    padding: 0.55em 0.75em 0.5em;
-    text-align: center;
-    text-decoration: none;
-    transition: none .18s ease-in-out;
-    transition-property: background-color,color,border-color;
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
 }
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+.btn {
+  border: none; /* Remove borders */
+  color: white; /* Add a text color */
+  padding: 14px 28px; /* Add some padding */
+  cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
+
+.success {background-color: #04AA6D;} /* Green */
+.success:hover {background-color: #46a049;}
+
+.info {background-color: #2196F3;} /* Blue */
+.info:hover {background: #0b7dda;}
+
+.warning {background-color: #ff9800;} /* Orange */
+.warning:hover {background: #e68a00;}
+
+.danger {background-color: #f44336;} /* Red */
+.danger:hover {background: #da190b;}
+
+.default {background-color: #e7e7e7; color: black;} /* Gray */
+.default:hover {background: #ddd;}

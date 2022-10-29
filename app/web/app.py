@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_file, request
 
+from lib.command import SystemCommand
 from lib.file_system import FileSystem
 from lib.shutdown import Shutdown
 from lib.zip import Zip
@@ -24,6 +25,19 @@ def backup():
 
         return render_template("backup.html", msg="Backup successfully restored.")
     return render_template("backup.html", msg="")
+
+
+@app.route('/assign_tag', methods=["GET", "POST"])
+def assign_tag():
+    if request.method == 'POST':
+        for file in request.files.getlist('files'):
+            FileSystem.save(file, app.config['UPLOAD_DIR'])
+
+        FileSystem.delete_content(FileSystem.UPLOAD_DIR)
+
+        return render_template("assign_tag.html", msg="Adding content to RFID tag successful.")
+    return render_template("assign_tag.html", msg="",
+                           system_commands=[SystemCommand.STOP, SystemCommand.VOLUME_UP, SystemCommand.VOLUME_DOWN])
 
 
 # https://code-maven.com/flask-upload-multiple-files

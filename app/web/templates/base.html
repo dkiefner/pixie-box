@@ -4,15 +4,13 @@
     <link rel="stylesheet" href='/static/style.css'/>
 
     <head>
-      {% if title %}
-      <title>{{ title }} - Pixiebox</title>
-      {% else %}
-      <title>Welcome to Pixiebox</title>
-      {% endif %}
+      <title>Pixiebox</title>
     </head>
     <body>
-        <div><a href="/">Home</a> <a href="/backup">Backup</a></div>
-        <hr>
-        {% block content %}{% endblock %}
+        <div class="topnav">
+            <a href="/" class="active" >Home</a>
+            <a href="/backup">Backup</a>
+            <a href="/assign_tag">RFID Tags</a>
+        </div>
     </body>
 </html>

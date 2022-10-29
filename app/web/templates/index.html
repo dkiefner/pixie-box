@@ -1,21 +1,37 @@
-{% extends "base.html" %}
+<!doctype html>
+<html>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href='/static/style.css'/>
 
-{% block content %}
-    <script type=text/javascript>
-        function shutdown() {
-            var request = new XMLHttpRequest();
-            request.open("GET", '/shutdown_system', true);
-            request.send();
-        }
-    </script>
+    <head>
+      <title>Pixiebox</title>
+    </head>
+    <body>
+        <script type=text/javascript>
+            function shutdown() {
+                var request = new XMLHttpRequest();
+                request.open("GET", '/shutdown_system', true);
+                request.send();
+            }
+        </script>
 
-    <h1>My website</h1>
+        <!-- Top Menu -->
+        <div class="topnav">
+            <a href="/" class="active">Home</a>
+            <a href="/backup">Backup</a>
+            <a href="/assign_tag">RFID Tags</a>
+        </div>
 
-    <ul id="rfids">
-        {% for item in rfids %}
-        <li>{{ item }}</a></li>
-        {% endfor %}
-    </ul>
+        <h1>Pixiebox</h1>
 
-    <input type="button" onclick="{{url_for('shutdown_system')}}" value="Shutdown">
-{% endblock %}
+        <ul id="rfids">
+            {% for item in rfids %}
+            <li>{{ item }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <form action="/shutdown_system">
+            <input class="btn danger" type="submit" value="Shutdown" />
+        </form>
+    </body>
+</html>

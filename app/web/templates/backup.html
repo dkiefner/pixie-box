@@ -1,26 +1,34 @@
-{% extends "base.html" %}
+<!doctype html>
+<html>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href='/static/style.css'/>
 
-{% block content %}
-    <script type=text/javascript>
-        function shutdown() {
-            var request = new XMLHttpRequest();
-            request.open("GET", '/shutdown_system', true);
-            request.send();
-        }
-    </script>
+    <head>
+      <title>Pixiebox</title>
+    </head>
+    <body>
+        <!-- Top Menu -->
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a href="/backup" class="active">Backup</a>
+            <a href="/assign_tag">RFID Tags</a>
+        </div>
 
-    <h1>Save and Restore Backups</h1>
+        <h1>Save and Restore Backups</h1>
 
-    <a class="btn btn-success" href="{{url_for('export_backup')}}">Create Backup</a>
+        <form action="/export_backup">
+            <input class="btn info" type="submit" value="Create Backup" />
+        </form>
 
-    {% if msg %}
-    <div>
-        <ul><li>{{ msg }}</li></ul>
-    </div>
-    {% endif %}
+        {% if msg %}
+        <div>
+            <ul><li>{{ msg }}</li></ul>
+        </div>
+        {% endif %}
 
-    <form method="POST" action="/backup" enctype="multipart/form-data">
-      <p><input type="file" name="backup" placeholder="select the backup file" required></p>
-      <p><input type="submit" value="Restore"></p>
-    </form>
-{% endblock %}
+        <form method="POST" action="/backup" enctype="multipart/form-data">
+          <p><input type="file" name="backup" required></p>
+          <p><input class="btn warning" type="submit" value="Restore"></p>
+        </form>
+    </body>
+</html>
