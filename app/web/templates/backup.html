@@ -31,16 +31,12 @@
 
         <!-- Tab content -->
         <div id="Create" class="tabcontent">
-            <h3>Create Backup</h3>
-
             <button class="btn info" onclick="location.href='/export_backup'" type="button">
                 <i class="fa fa-arrow-down-to-line"></i> Download
             </button>
         </div>
 
         <div id="Restore" class="tabcontent">
-            <h3>Restore from Backup</h3>
-
             <form method="POST" action="/backup" enctype="multipart/form-data">
               <p><input type="file" name="backup" required></p>
               <p><input class="btn warning" type="submit" value="Restore"></p>

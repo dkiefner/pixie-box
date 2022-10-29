@@ -31,8 +31,6 @@
 
         <!-- Tab content -->
         <div id="Audio" class="tabcontent">
-            <h3>Audio</h3>
-
             <form method="POST" action="/assign_tag" enctype="multipart/form-data">
               <p><input type="file" name="files" required multiple></p>
               <p><input class="btn success" type="submit" value="Save"></p>
@@ -40,8 +38,6 @@
         </div>
 
         <div id="System" class="tabcontent">
-            <h3>System Controls</h3>
-
             <form method="POST" action="/assign_tag" enctype="multipart/form-data">
                 {% for command in system_commands %}
                 <div>
