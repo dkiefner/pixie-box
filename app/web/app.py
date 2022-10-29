@@ -17,7 +17,7 @@ player = LocalFilePlayer(serviceStateStore)
 # css style from: https://moderncss.dev/custom-select-styles-with-pure-css/
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', volume=player.get_volume())
 
 
 @app.route('/backup', methods=["GET", "POST"])
