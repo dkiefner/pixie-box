@@ -18,7 +18,7 @@ class BaseStore:
             store.close()
 
     def get(self, key):
-        with dbm.open(self.__store_path, 'r') as store:
+        with dbm.open(self.__store_path, 'c') as store:
             value = store.get(str(key))
             store.close()
 
