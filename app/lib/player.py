@@ -81,7 +81,7 @@ class LocalFilePlayer(Player):
     def get_volume():
         level = Shell.execute(
             "amixer sget Headphone | awk -F 'Playback|[][]' 'BEGIN {RS=\"\"}{ print substr($5, 1, length($5)-1) }'")
-        return int(level)
+        return int(level) if isinstance(level, int) else -1
 
     @staticmethod
     def __set_volume(level):
