@@ -23,6 +23,7 @@ def exit_handler():
 
 def read():
     tag_id = rfidReader.read()
+    serviceStateStore.save(ServiceStateStore.KEY_LAST_SCANNED_RFID, tag_id)
 
     tag_dir = FileSystem.path(FileSystem.RFID_BASE_DIR, tag_id)
     if tag_dir.exists():

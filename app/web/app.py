@@ -6,7 +6,6 @@ from lib.player import LocalFilePlayer
 from lib.shutdown import Shutdown
 from lib.store import ServiceStateStore
 from lib.zip import Zip
-from datetime import datetime
 
 app = Flask(__name__)
 app.config["UPLOAD_DIR"] = FileSystem.UPLOAD_DIR
@@ -73,6 +72,11 @@ def export_backup():
     backup_file_path = Zip.create_from_directory(FileSystem.DATA_DIR, f"{FileSystem.TEMP_DIR}/pixiebox-backup")
     return send_file(backup_file_path, as_attachment=True)
 
+
 @app.route('/last_scanned_tag')
-def subscribe():
-    return datetime.now().strftime('%S.%f')
+def last_scanned_tag():
+    if player.is_playing():
+        player.stop()
+
+    last_scanned_rfid = serviceStateStore.get(ServiceStateStore.KEY_LAST_SCANNED_RFID)
+    return last_scanned_rfid if last_scanned_rfid is not None else ""

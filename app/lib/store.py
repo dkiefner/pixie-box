@@ -3,6 +3,7 @@
 import dbm
 import os
 
+from lib.file_system import FileSystem
 from lib.logger import Logger
 
 
@@ -29,12 +30,13 @@ class BaseStore:
 
 
 class ServiceStateStore(BaseStore):
+    KEY_LAST_SCANNED_RFID = "last-played-uri"
 
     def __init__(self):
-        BaseStore.__init__(self, "/home/pi/pixiebox/data", "service-state-store")
+        BaseStore.__init__(self, FileSystem.DATA_DIR, "service-state-store")
 
 
 class SystemTagStore(BaseStore):
 
     def __init__(self):
-        BaseStore.__init__(self, "/home/pi/pixiebox/data", "system-tag-store")
+        BaseStore.__init__(self, FileSystem.DATA_DIR, "system-tag-store")
