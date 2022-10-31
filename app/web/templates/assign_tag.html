@@ -9,12 +9,6 @@
     <body>
         <script src="/static/js/tabs.js" language="JavaScript" type="text/javascript"></script>
         <script src="/static/js/tag.js" language="JavaScript" type="text/javascript"></script>
-        <script>
-            function updateLastTag(tag) {
-                document.getElementById('tag').value = tag;
-            }
-            pollLastScannedTag(updateLastTag);
-        </script>
     
         <!-- Top Menu -->
         <div class="topnav">
@@ -58,6 +52,13 @@
             </form>
         </div>
 
-        <script>document.getElementById("defaultOpen").click();</script>
+        <script>
+            document.getElementById("defaultOpen").click();
+
+            function updateLastTag(tag) {
+                document.getElementById('tag').value = tag;
+            }
+            pollLastScannedTag(updateLastTag);
+        </script>
     </body>
 </html>
