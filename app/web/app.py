@@ -41,11 +41,10 @@ def assign_tag():
         FileSystem.delete_content(FileSystem.UPLOAD_DIR)
 
         return render_template("assign_tag.html", msg="Adding content to RFID tag successful.")
+
     return render_template("assign_tag.html", msg="",
                            system_commands=[SystemCommand.STOP, SystemCommand.VOLUME_UP, SystemCommand.VOLUME_DOWN])
 
-
-# https://code-maven.com/flask-upload-multiple-files
 
 # CTA endpoints
 

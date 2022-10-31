@@ -8,7 +8,8 @@ from lib.shell import Shell
 
 
 class FileSystem:
-    ROOT_DIR = "/home/pi/pixiebox/"
+    # ROOT_DIR = "/home/pi/pixiebox/"
+    ROOT_DIR = "/Users/dannyk/src/pixiebox/"
     DATA_DIR = f"{ROOT_DIR}data/"
     RFID_BASE_DIR = f"{DATA_DIR}audio/rfid/"
     TEMP_DIR = f"{ROOT_DIR}tmp/"
