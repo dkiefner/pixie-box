@@ -30,7 +30,7 @@ class BaseStore:
 
 
 class ServiceStateStore(BaseStore):
-    KEY_LAST_SCANNED_RFID = "last-played-uri"
+    KEY_LAST_SCANNED_RFID = "last-scanned-rfid"
 
     def __init__(self):
         BaseStore.__init__(self, FileSystem.DATA_DIR, "service-state-store")
