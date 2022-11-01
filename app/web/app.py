@@ -43,9 +43,12 @@ def assign_tag():
             for file in request.files.getlist('files'):
                 FileSystem.save(file, FileSystem.UPLOAD_DIR)
 
-            # clear all old files for the given tag or create the tag directory if necessary
+            # clear all old files for the given tag if requested
             rfid_path = FileSystem.path(FileSystem.RFID_BASE_DIR, tag)
-            FileSystem.delete_content(rfid_path)
+            if request.form.get("overwrite"):
+                FileSystem.delete_content(rfid_path)
+
+            # create the tag directory if necessary
             FileSystem.create_path(rfid_path)
 
             # move all files from UPLOAD_DIR to new tag directory and clear everything in UPLOAD_DIR
