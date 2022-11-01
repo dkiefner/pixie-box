@@ -23,6 +23,7 @@ def exit_handler():
 
 def read():
     tag_id = rfidReader.read()
+    serviceStateStore.save(ServiceStateStore.KEY_LAST_SCANNED_RFID, tag_id)
 
     tag_dir = FileSystem.path(FileSystem.RFID_BASE_DIR, tag_id)
     if tag_dir.exists():
@@ -40,7 +41,7 @@ def read():
             elif SystemCommand[cmd] is SystemCommand.VOLUME_DOWN:
                 player.volume_down()
         else:
-            Logger.log("Tag id not registered.")
+            Logger.log(f"Tag {tag_id} not registered.")
             player.play_file(SystemAudioUris.SAD_TROMBONE)
 
 

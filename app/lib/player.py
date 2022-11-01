@@ -78,10 +78,13 @@ class LocalFilePlayer(Player):
             Logger.log(f"Cannot decrease volume. Minimum volume level of {self.VOLUME_MIN_VALUE}% reached.")
 
     @staticmethod
-    def __get_volume():
+    def get_volume():
         level = Shell.execute(
             "amixer sget Headphone | awk -F 'Playback|[][]' 'BEGIN {RS=\"\"}{ print substr($5, 1, length($5)-1) }'")
-        return int(level)
+        try:
+            return int(level)
+        except ValueError:
+            return -1
 
     @staticmethod
     def __set_volume(level):

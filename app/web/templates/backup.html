@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href='/static/css/style.css'/>
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <head>
+      <title>Pixiebox</title>
+    </head>
+    <body>
+        <script src="/static/js/tabs.js" language="JavaScript" type="text/javascript"></script>
+
+        <!-- Top Menu -->
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a href="/backup" class="active">Backup</a>
+            <a href="/assign_tag">RFID Tags</a>
+        </div>
+
+        <h1>Save and Restore</h1>
+
+        {% if msg %}
+        <div>
+            <ul><li>{{ msg }}</li></ul>
+        </div>
+        {% endif %}
+
+        <div class="tab">
+          <button class="tablinks" onclick="openTab(event, 'Create')" id="defaultOpen">Create</button>
+          <button class="tablinks" onclick="openTab(event, 'Restore')">Restore</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="Create" class="tabcontent">
+            <button class="btn info" onclick="location.href='/export_backup'" type="button">
+                <i class="fa fa-download"></i> Download
+            </button>
+        </div>
+
+        <div id="Restore" class="tabcontent">
+            <form method="POST" action="/backup" enctype="multipart/form-data">
+              <p><input type="file" name="backup" required></p>
+              <p><input class="btn warning" type="submit" value="Restore"></p>
+            </form>
+        </div>
+
+        <script>document.getElementById("defaultOpen").click();</script>
+    </body>
+</html>

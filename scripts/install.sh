@@ -21,7 +21,8 @@ chmod +x ~/pixiebox/scripts/setup_audio.sh; ~/pixiebox/scripts/setup_audio.sh
 
 # create needed directories
 mkdir -p ~/pixiebox/data/audio/rfid
-mkdir -p ~/pixiebox/data/audio/upload
+mkdir -p ~/pixiebox/tmp
+mkdir -p ~/pixiebox/upload
 
 # add the app directory as a root module for python
 echo 'export PYTHONPATH="/home/pi/pixiebox/app"' >> /etc/profile
