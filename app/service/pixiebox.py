@@ -41,7 +41,7 @@ def read():
             elif SystemCommand[cmd] is SystemCommand.VOLUME_DOWN:
                 player.volume_down()
         else:
-            Logger.log("Tag id not registered.")
+            Logger.log(f"Tag {tag_id} not registered.")
             player.play_file(SystemAudioUris.SAD_TROMBONE)
 
 
