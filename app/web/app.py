@@ -4,13 +4,13 @@ from lib.command import SystemCommand
 from lib.file_system import FileSystem
 from lib.player import LocalFilePlayer
 from lib.shutdown import Shutdown
-from lib.store import ServiceStateStore
+from lib.store import ServiceStateStore, SystemTagStore
 from lib.zip import Zip
 
 app = Flask(__name__)
-app.config["UPLOAD_DIR"] = FileSystem.UPLOAD_DIR
 
 serviceStateStore = ServiceStateStore()
+systemTagStore = SystemTagStore()
 player = LocalFilePlayer(serviceStateStore)
 
 
@@ -34,15 +34,34 @@ def backup():
 
 @app.route('/assign_tag', methods=["GET", "POST"])
 def assign_tag():
+    result_message = ''
+
     if request.method == 'POST':
-        for file in request.files.getlist('files'):
-            FileSystem.save(file, app.config['UPLOAD_DIR'])
+        tag = request.form.get("audioTag")
+        if tag is not None:
+            # move all files into the UPLOAD_DIR
+            for file in request.files.getlist('files'):
+                FileSystem.save(file, FileSystem.UPLOAD_DIR)
 
-        FileSystem.delete_content(FileSystem.UPLOAD_DIR)
+            # clear all old files for the given tag or create the tag directory if necessary
+            rfid_path = FileSystem.path(FileSystem.RFID_BASE_DIR, tag)
+            FileSystem.delete_content(rfid_path)
+            FileSystem.create_path(rfid_path)
 
-        return render_template("assign_tag.html", msg="Adding content to RFID tag successful.")
+            # move all files from UPLOAD_DIR to new tag directory and clear everything in UPLOAD_DIR
+            FileSystem.move(FileSystem.UPLOAD_DIR, str(rfid_path))
+            FileSystem.delete_content(FileSystem.UPLOAD_DIR)
 
-    return render_template("assign_tag.html", msg="",
+            result_message = f"Adding audio content to RFID tag {tag} successful."
+
+        tag = request.form.get("systemTag")
+        if tag is not None:
+            command = request.form.get("command")
+            systemTagStore.save(tag, command)
+
+            result_message = f"Adding system command {command} to RFID tag {tag} successful."
+
+    return render_template("assign_tag.html", msg=result_message,
                            system_commands=[SystemCommand.STOP, SystemCommand.VOLUME_UP, SystemCommand.VOLUME_DOWN])
 
 

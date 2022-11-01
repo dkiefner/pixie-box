@@ -33,6 +33,7 @@ class FileSystem:
 
     @staticmethod
     def save(file, path):
+        FileSystem.create_path(path)
         file_path = os.path.join(path, file.filename)
         Logger.log(f"Saving file {file.filename} to {path}")
         file.save(file_path)
@@ -42,3 +43,8 @@ class FileSystem:
     def delete_content(directory_path):
         Logger.log(f"Deleting all content in: {directory_path}")
         Shell.execute(f"rm -rf {directory_path}*")
+
+    @staticmethod
+    def create_path(path):
+        if not os.path.exists(path):
+            os.makedirs(path)
