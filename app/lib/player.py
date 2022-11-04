@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
+from lib.file_system import FileSystem
 from lib.logger import Logger
 from lib.shell import Shell
 
 
 class SystemAudioUris:
-    SAD_TROMBONE = "file:///home/pi/pixiebox/audio/system/sad-trombone.wav"
+    SAD_TROMBONE = f"file://{FileSystem.SYSTEM_AUDIO_DIR}sad-trombone.wav"
+    GAME_BOY_START_UP = f"file://{FileSystem.SYSTEM_AUDIO_DIR}game-boy-startup.wav"
 
 
 class Player:

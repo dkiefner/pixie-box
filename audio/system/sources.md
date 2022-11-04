@@ -3,3 +3,4 @@ All sounds under the system folder are free to use by the license [Creative Comm
 
 - [test-music.wav](https://freesound.org/people/josefpres/sounds/636237/)
 - [sad-trombone.wav](https://freesound.org/people/kirbydx/sounds/175409/)
+- [game-boy-startup](https://freesound.org/people/toumas/sounds/610484/)

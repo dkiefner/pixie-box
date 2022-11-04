@@ -4,8 +4,6 @@ import atexit
 import time
 
 from lib.command import SystemCommand
-from lib.file_system import FileSystem
-from lib.logger import Logger
 from lib.player import LocalFilePlayer, SystemAudioUris
 from lib.rfid_reader import MFRC522Reader
 from lib.store import *
@@ -48,6 +46,7 @@ def read():
 atexit.register(exit_handler)
 
 Logger.log("PixieBox started!")
+player.play_file(SystemAudioUris.GAME_BOY_START_UP)
 
 while True:
     read()

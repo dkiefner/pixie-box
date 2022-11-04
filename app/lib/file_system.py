@@ -13,6 +13,7 @@ class FileSystem:
     RFID_BASE_DIR = f"{DATA_DIR}audio/rfid/"
     TEMP_DIR = f"{ROOT_DIR}tmp/"
     UPLOAD_DIR = f"{TEMP_DIR}upload/"
+    SYSTEM_AUDIO_DIR = f"{ROOT_DIR}audio/system/"
 
     @staticmethod
     def path(base_path, directory):
