@@ -1,6 +1,6 @@
 [Unit]
 Description=PixieBox music player service
-After=mopidy
+After=multi-user.target mopidy.service
 
 [Service]
 Type=simple
