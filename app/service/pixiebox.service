@@ -6,6 +6,8 @@ After=multi-user.target mopidy.service
 Type=simple
 Restart=always
 RestartSec=2
+# mopidy seems not to be ready when the service is actually started so we have to delay the start of our service by 2s
+ExecStartPre=/bin/sleep 2
 ExecStart=/usr/bin/python3 -u /home/pi/pixiebox/app/service/pixiebox.py
 StandardError=journal
 StandardOutput=journal
