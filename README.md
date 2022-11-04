@@ -17,8 +17,6 @@ The goal is to strip down the complex setup to very specific needs and requireme
 
 ## Setup
 
-### General
-
 After installing the Pi OS and booting up the Pi, the following steps are needed:
 
 **Download this repository:**  
@@ -46,20 +44,13 @@ chmod +x ~/pixiebox/scripts/install.sh; sudo ~/pixiebox/scripts/install.sh
 chmod +x ~/pixiebox/scripts/test-setup.sh; ~/pixiebox/scripts/test-setup.sh
 ```
 
-### Power LED
-
-The system is turning on and off a power LED connected to `GPIO17`. If you don't have a LED connected at all or to
-another PIN, feel free to change the configuration in
-the [power_led.py](https://github.com/dkiefner/pixiebox/blob/main/app/lib/power_led.py) file.
-
 ## Usage
 
 ### Create new RFID tags with audio
 
 To create a new RFID tag and associate audio files with it, do the following:
 
-- copy all audio files you want to play for a given RFID tag into `~/pixiebox/data/audio/upload` on the Raspberry Pi (
-  e.g.
+- copy all audio files you want to play for a given RFID tag into `~/pixiebox/data/audio/upload` on the Raspberry Pi (e.g.
   using `scp` or share the directory using Samba)
 - run the following script: `python3 ~/pixiebox/app/service/new_audio_tag.py` and it will do the magic
 
