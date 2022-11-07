@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href='/static/css/style.css'/>
+
+    <head>
+      <title>Pixiebox</title>
+    </head>
+    <body>
+
+        <!-- Top Menu -->
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a href="/backup">Backup</a>
+            <a href="/assign_tag">RFID Tags</a>
+            <a href="/system_info" class="active">System</a>
+        </div>
+
+        <h1>System</h1>
+
+        <div>
+            GPU Temp : {{ gpu_temp }}
+        </div>
+        <div>
+            CPU Temp : {{ cpu_temp }}
+        </div>
+    </body>
+</html>

@@ -5,6 +5,7 @@ from lib.file_system import FileSystem
 from lib.player import LocalFilePlayer
 from lib.shutdown import Shutdown
 from lib.store import ServiceStateStore, SystemTagStore
+from lib.system_info import SystemInfo
 from lib.zip import Zip
 
 app = Flask(__name__)
@@ -66,6 +67,11 @@ def assign_tag():
 
     return render_template("assign_tag.html", msg=result_message,
                            system_commands=[SystemCommand.STOP, SystemCommand.VOLUME_UP, SystemCommand.VOLUME_DOWN])
+
+
+@app.route('/system_info')
+def system_info():
+    return render_template('system_info.html', gpu_temp=SystemInfo.gpu_temp(), cpu_temp=SystemInfo.cpu_temp())
 
 
 # CTA endpoints
