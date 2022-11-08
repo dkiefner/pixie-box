@@ -12,6 +12,7 @@ StandardOutput=journal
 StandardInput=null
 KillSignal=SIGINT
 TimeoutStopSec=2
+Environment=PYTHONPATH=/home/pi/pixiebox/app
 
 [Install]
 WantedBy=multi-user.target
