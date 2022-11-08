@@ -221,7 +221,23 @@ sudo systemctl status pixiebox_webapp.service
 This should print something like the following:
 
 ```commandline
+● pixiebox_webapp.service - Web app for PixieBox music player
+     Loaded: loaded (/home/pi/pixiebox/app/web/pixiebox_webapp.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2022-11-08 19:57:42 CET; 42s ago
+   Main PID: 978 (python3)
+      Tasks: 1 (limit: 4164)
+        CPU: 531ms
+     CGroup: /system.slice/pixiebox_webapp.service
+             └─978 /usr/bin/python3 -u -m flask --app=/home/pi/pixiebox/app/web/app run --host=0.0.0.0
 
+Nov 08 19:57:42 raspberrypi systemd[1]: Started Web app for PixieBox music player.
+Nov 08 19:57:42 raspberrypi python3[978]:  * Serving Flask app '/home/pi/pixiebox/app/web/app'
+Nov 08 19:57:42 raspberrypi python3[978]:  * Debug mode: off
+Nov 08 19:57:42 raspberrypi python3[978]: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+Nov 08 19:57:42 raspberrypi python3[978]:  * Running on all addresses (0.0.0.0)
+Nov 08 19:57:42 raspberrypi python3[978]:  * Running on http://127.0.0.1:5000
+Nov 08 19:57:42 raspberrypi python3[978]:  * Running on http://192.168.0.20:5000
+Nov 08 19:57:42 raspberrypi python3[978]: Press CTRL+C to quit
 ```
 
 The important part to look for in the output is `Active: active (running)`.
