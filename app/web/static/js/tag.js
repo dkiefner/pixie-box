@@ -9,6 +9,6 @@ async function pollLastScannedTag(callback) {
     }
 
     // Reconnect in one second
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 500));
     await pollLastScannedTag(callback);
 }
