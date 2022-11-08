@@ -199,3 +199,29 @@ Oct 21 20:57:17 raspberrypi python3[964]: Waiting for button press...
 ```
 
 The important part to look for in the output is `Active: active (running)`.
+
+### Install the Web App
+
+The Web App simplifies some administration like attaching audio to RFID tags, creating backups or controlling the media player.
+
+#### Install the service
+
+To install and start the service that is running the Web App, run the following command:
+
+```commandline
+chmod +x ~/pixiebox/scripts/install-webapp.sh; sudo ~/pixiebox/scripts/install-webapp.sh
+```
+
+After executing the script, run the following command to check if service is up and running:
+
+```commandline
+sudo systemctl status pixiebox_webapp.service
+```
+
+This should print something like the following:
+
+```commandline
+
+```
+
+The important part to look for in the output is `Active: active (running)`.

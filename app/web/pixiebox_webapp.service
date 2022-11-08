@@ -1,0 +1,17 @@
+[Unit]
+Description=Web app for PixieBox music player
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=2
+ExecStart=/usr/bin/python3 -u -m flask --app=/home/pi/pixiebox/app/web/app  run --host=0.0.0.0
+StandardError=journal
+StandardOutput=journal
+StandardInput=null
+KillSignal=SIGINT
+TimeoutStopSec=2
+
+[Install]
+WantedBy=multi-user.target
