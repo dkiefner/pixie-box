@@ -56,7 +56,7 @@ class LocalFilePlayer(Player):
         Shell.execute("mpc -q stop")
 
     def volume_up(self):
-        current = self.__get_volume()
+        current = self.get_volume()
         Logger.log(f"Increase volume. Current level is {current}%")
 
         if current < self.VOLUME_MAX_VALUE:
@@ -68,7 +68,7 @@ class LocalFilePlayer(Player):
             Logger.log("Cannot increase volume. Maximum volume reached.")
 
     def volume_down(self):
-        current = self.__get_volume()
+        current = self.get_volume()
         Logger.log(f"Decrease volume. Current level is {current}%")
 
         if current > self.VOLUME_MIN_VALUE:
