@@ -28,6 +28,12 @@ class BaseStore:
             else:
                 return value
 
+    def delete(self, key):
+        Logger.log(f"Deleting {key}")
+        with dbm.open(self.__store_path, 'c') as store:
+            del store[str(key)]
+            store.close()
+
 
 class ServiceStateStore(BaseStore):
     KEY_LAST_SCANNED_RFID = "last-scanned-rfid"
