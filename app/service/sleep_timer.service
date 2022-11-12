@@ -1,5 +1,5 @@
 [Unit]
-Description=PixieBox music player sleep timer service
+Description=PixieBox sleep timer service
 After=multi-user.target mopidy.service
 
 [Service]
