@@ -22,23 +22,29 @@
 
         <h1>Pixiebox</h1>
 
-        <div>
-            Volume: {{ volume }}%
-        </div>
-
         <div class="media-buttons">
             <button class="btn info" onclick="location.href='/run_system_command?command=VOLUME_DOWN'" type="button">
                 <i class="fa fa-volume-down"></i>
             </button>
-            <button class="btn info" onclick="location.href='/run_system_command?command=STOP'" type="button">
-                <i class="fa fa-stop"></i>
-            </button>
+            &nbsp;&nbsp; {{ volume }}% &nbsp;&nbsp;
             <button class="btn info" onclick="location.href='/run_system_command?command=VOLUME_UP'" type="button">
                 <i class="fa fa-volume-up"></i>
             </button>
         </div>
 
-        <div>
+        <div class="media-buttons">
+            <button class="btn info" onclick="location.href='/run_system_command?command=PREVIOUS'" type="button">
+                <i class="fa fa-backward"></i>
+            </button>&nbsp;
+            <button class="btn info" onclick="location.href='/run_system_command?command=STOP'" type="button">
+                <i class="fa fa-stop"></i>
+            </button>&nbsp;
+            <button class="btn info" onclick="location.href='/run_system_command?command=NEXT'" type="button">
+                <i class="fa fa-forward"></i>
+            </button>
+        </div>
+
+        <div class="media-buttons">
             <button class="btn danger" onclick="location.href='/run_system_command?command=SHUTDOWN'" type="button">
                 <i class="fa fa-power-off"></i> Shutdown
             </button>

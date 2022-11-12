@@ -6,6 +6,7 @@ import time
 from lib.command import SystemCommand
 from lib.player import LocalFilePlayer, SystemAudioUris
 from lib.rfid_reader import MFRC522Reader
+from lib.shutdown import Shutdown
 from lib.store import *
 
 rfidReader = MFRC522Reader()
@@ -38,6 +39,12 @@ def read():
                 player.volume_up()
             elif SystemCommand[cmd] is SystemCommand.VOLUME_DOWN:
                 player.volume_down()
+            elif SystemCommand[cmd] is SystemCommand.SHUTDOWN:
+                Shutdown.halt()
+            elif SystemCommand[cmd] is SystemCommand.NEXT:
+                player.next()
+            elif SystemCommand[cmd] is SystemCommand.PREVIOUS:
+                player.prev()
         else:
             Logger.log(f"Tag {tag_id} not registered.")
             player.play_file(SystemAudioUris.SAD_TROMBONE)

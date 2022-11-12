@@ -66,7 +66,8 @@ def assign_tag():
             result_message = f"Adding system command {command} to RFID tag {tag} successful."
 
     return render_template("assign_tag.html", msg=result_message,
-                           system_commands=[SystemCommand.STOP, SystemCommand.VOLUME_UP, SystemCommand.VOLUME_DOWN])
+                           system_commands=[SystemCommand.STOP, SystemCommand.VOLUME_UP, SystemCommand.VOLUME_DOWN,
+                                            SystemCommand.SHUTDOWN, SystemCommand.NEXT, SystemCommand.PREVIOUS])
 
 
 @app.route('/system_info')
@@ -88,6 +89,10 @@ def run_system_command():
         player.volume_down()
     elif command == SystemCommand.SHUTDOWN.name:
         Shutdown.halt()
+    elif command == SystemCommand.NEXT.name:
+        player.next()
+    elif command == SystemCommand.PREVIOUS.name:
+        player.prev()
     else:
         return '', 404
 

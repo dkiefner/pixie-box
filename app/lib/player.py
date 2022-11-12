@@ -55,6 +55,14 @@ class LocalFilePlayer(Player):
     def stop(self):
         Shell.execute("mpc -q stop")
 
+    @staticmethod
+    def next():
+        Shell.execute("mpc -q next")
+
+    @staticmethod
+    def prev():
+        Shell.execute("mpc -q prev")
+
     def volume_up(self):
         current = self.get_volume()
         Logger.log(f"Increase volume. Current level is {current}%")

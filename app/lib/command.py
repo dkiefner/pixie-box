@@ -7,3 +7,5 @@ class SystemCommand(Enum):
     VOLUME_UP = 2
     VOLUME_DOWN = 3
     SHUTDOWN = 4
+    NEXT = 5
+    PREVIOUS = 6
