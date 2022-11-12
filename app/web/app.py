@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_file, request
+from flask import Flask, render_template, send_file, request, redirect, url_for
 
 from lib.command import SystemCommand
 from lib.file_system import FileSystem
@@ -85,8 +85,10 @@ def run_system_command():
         player.stop()
     elif command == SystemCommand.VOLUME_UP.name:
         player.volume_up()
+        return redirect(url_for('index'))
     elif command == SystemCommand.VOLUME_DOWN.name:
         player.volume_down()
+        return redirect(url_for('index'))
     elif command == SystemCommand.SHUTDOWN.name:
         Shutdown.halt()
     elif command == SystemCommand.NEXT.name:
