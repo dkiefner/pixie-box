@@ -116,4 +116,4 @@ class LocalFilePlayer(Player):
             return is_playing and uri == last_played_uri
 
     def get_last_played_uri(self):
-        return self.service_state_store.get(self.KEY_LAST_PLAYED_URI)
+        return self.service_state_store.get_string(self.KEY_LAST_PLAYED_URI)

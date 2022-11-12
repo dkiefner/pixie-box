@@ -29,7 +29,7 @@ def read():
         Logger.log("Audio tag id scanned.")
         player.play_rfid(tag_id)
     else:
-        cmd = systemTagStore.get(tag_id)
+        cmd = systemTagStore.get_string(tag_id)
         if cmd is not None:
             Logger.log(f"System tag id scanned for command: {cmd}")
 

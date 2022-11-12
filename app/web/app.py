@@ -112,5 +112,5 @@ def last_scanned_tag():
     if player.is_playing():
         player.stop()
 
-    last_scanned_rfid = serviceStateStore.get(ServiceStateStore.KEY_LAST_SCANNED_RFID)
+    last_scanned_rfid = serviceStateStore.get_string(ServiceStateStore.KEY_LAST_SCANNED_RFID)
     return last_scanned_rfid if last_scanned_rfid is not None else ""

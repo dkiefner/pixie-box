@@ -18,7 +18,7 @@ class BaseStore:
             store[str(key)] = str(value)
             store.close()
 
-    def get(self, key):
+    def get_string(self, key):
         with dbm.open(self.__store_path, 'c') as store:
             value = store.get(str(key))
             store.close()
@@ -27,6 +27,14 @@ class BaseStore:
                 return value.decode()
             else:
                 return value
+
+    def get_int(self, key):
+        value = self.get_string(key)
+
+        if value is not None:
+            return int(value)
+        else:
+            return None
 
     def delete(self, key):
         Logger.log(f"Deleting {key}")
