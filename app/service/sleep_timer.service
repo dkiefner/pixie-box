@@ -1,0 +1,18 @@
+[Unit]
+Description=PixieBox music player sleep timer service
+After=multi-user.target mopidy.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=2
+ExecStart=/usr/bin/python3 -u /home/pi/pixiebox/app/service/sleep_timer.py
+StandardError=journal
+StandardOutput=journal
+StandardInput=null
+KillSignal=SIGINT
+TimeoutStopSec=2
+Environment=PYTHONPATH=/home/pi/pixiebox/app
+
+[Install]
+WantedBy=multi-user.target
