@@ -22,27 +22,69 @@
 
         <h1>Pixiebox</h1>
 
-        <div class="media-buttons">
-            <button class="btn info" onclick="location.href='/run_system_command?command=VOLUME_DOWN'" type="button">
-                <i class="fa fa-volume-down"></i>
-            </button>
-            &nbsp;&nbsp; {{ volume }}% &nbsp;&nbsp;
-            <button class="btn info" onclick="location.href='/run_system_command?command=VOLUME_UP'" type="button">
-                <i class="fa fa-volume-up"></i>
-            </button>
+        {% if msg %}
+        <div>
+            <ul><li>{{ msg }}</li></ul>
         </div>
+        {% endif %}
 
-        <div class="media-buttons">
-            <button class="btn info" onclick="location.href='/run_system_command?command=PREVIOUS'" type="button">
-                <i class="fa fa-backward"></i>
-            </button>&nbsp;
-            <button class="btn info" onclick="location.href='/run_system_command?command=STOP'" type="button">
-                <i class="fa fa-stop"></i>
-            </button>&nbsp;
-            <button class="btn info" onclick="location.href='/run_system_command?command=NEXT'" type="button">
-                <i class="fa fa-forward"></i>
-            </button>
-        </div>
+        <fieldset>
+            <legend>Media Controls</legend>
+
+            <div class="media-buttons">
+                <button class="btn info" onclick="location.href='/run_system_command?command=VOLUME_DOWN'" type="button">
+                    <i class="fa fa-volume-down"></i>
+                </button>
+                &nbsp;&nbsp; {{ volume }}% &nbsp;&nbsp;
+                <button class="btn info" onclick="location.href='/run_system_command?command=VOLUME_UP'" type="button">
+                    <i class="fa fa-volume-up"></i>
+                </button>
+            </div>
+
+            <div class="media-buttons">
+                <button class="btn info" onclick="location.href='/run_system_command?command=PREVIOUS'" type="button">
+                    <i class="fa fa-backward"></i>
+                </button>&nbsp;
+                <button class="btn info" onclick="location.href='/run_system_command?command=STOP'" type="button">
+                    <i class="fa fa-stop"></i>
+                </button>&nbsp;
+                <button class="btn info" onclick="location.href='/run_system_command?command=NEXT'" type="button">
+                    <i class="fa fa-forward"></i>
+                </button>
+            </div>
+
+        </fieldset>
+
+        <br />
+
+        <form method="POST" action="/">
+            <fieldset>
+                <legend>Sleep Timer</legend>
+                <br />
+
+                {% if sleep_timer_timeout %}
+                <input name="enable-sleep-timer" type="checkbox" checked="checked"/>
+                {% else %}
+                <input name="enable-sleep-timer" type="checkbox" />
+                {% endif %}
+                 Enable Sleep Timer<br /><br />
+
+                <div>
+                    <label for="sleep-timer-timeout">Timeout:</label>
+                    {% if sleep_timer_timeout %}
+                    <input type="text" id="sleep-timer-timeout" name="sleep-timer-timeout" value="{{ sleep_timer_timeout }}"
+                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                    {% else %}
+                    <input type="text" id="sleep-timer-timeout" name="sleep-timer-timeout"
+                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                    {% endif %}
+                    minutes
+                </div>
+                <br />
+
+                <input class="btn success" type="submit" value="Save">
+            </fieldset>
+        </form>
 
         <div class="media-buttons">
             <button class="btn danger" onclick="location.href='/run_system_command?command=SHUTDOWN'" type="button">

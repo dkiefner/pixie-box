@@ -16,9 +16,24 @@ player = LocalFilePlayer(serviceStateStore)
 
 
 # css style from: https://moderncss.dev/custom-select-styles-with-pure-css/
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
-    return render_template('index.html', volume=player.get_volume())
+    message = ""
+    if request.method == 'POST':
+        is_sleep_timer_enabled = request.form.get("enable-sleep-timer") == "on"
+        if is_sleep_timer_enabled:
+            sleep_timer_timeout_in_seconds = int(request.form.get("sleep-timer-timeout")) * 60
+            serviceStateStore.save(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS, sleep_timer_timeout_in_seconds)
+            message = f"Sleep timer enabled with {sleep_timer_timeout_in_seconds} seconds"
+        else:
+            if serviceStateStore.get_string(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS) is not None:
+                serviceStateStore.delete(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS)
+                message = f"Sleep timer disabled"
+
+    sleep_timer_timeout = serviceStateStore.get_string(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS)
+
+    return render_template('index.html', volume=player.get_volume(), msg=message,
+                           sleep_timer_timeout=sleep_timer_timeout)
 
 
 @app.route('/backup', methods=["GET", "POST"])

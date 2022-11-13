@@ -6,20 +6,17 @@ from lib.player import LocalFilePlayer
 from lib.shutdown import Shutdown
 from lib.store import ServiceStateStore
 
-KEY_SLEEP_TIMER_TIMEOUT = "sleep_timer_timeout"
-KEY_PLAYER_STOPPED_TIMESTAMP = "player_stopped_timestamp"
-
 serviceStateStore = ServiceStateStore()
 player = LocalFilePlayer(serviceStateStore)
 
 
 def is_enabled():
-    return serviceStateStore.get_string(KEY_SLEEP_TIMER_TIMEOUT) is not None
+    return serviceStateStore.get_string(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS) is not None
 
 
 def reset_timer():
-    if serviceStateStore.get_string(KEY_PLAYER_STOPPED_TIMESTAMP) is not None:
-        serviceStateStore.delete(KEY_PLAYER_STOPPED_TIMESTAMP)
+    if serviceStateStore.get_string(ServiceStateStore.KEY_PLAYER_STOPPED_TIMESTAMP) is not None:
+        serviceStateStore.delete(ServiceStateStore.KEY_PLAYER_STOPPED_TIMESTAMP)
 
 
 def current_timestamp():
@@ -27,17 +24,17 @@ def current_timestamp():
 
 
 def is_sleep_timeout_reached():
-    player_stopped_timestamp = serviceStateStore.get_int(KEY_PLAYER_STOPPED_TIMESTAMP)
-    sleep_timer_timeout = serviceStateStore.get_int(KEY_SLEEP_TIMER_TIMEOUT)
+    player_stopped_timestamp = serviceStateStore.get_int(ServiceStateStore.KEY_PLAYER_STOPPED_TIMESTAMP)
+    sleep_timer_timeout = serviceStateStore.get_int(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS)
 
     return current_timestamp() - player_stopped_timestamp >= sleep_timer_timeout
 
 
 def start_timer():
-    player_stopped_timestamp = serviceStateStore.get_int(KEY_PLAYER_STOPPED_TIMESTAMP)
+    player_stopped_timestamp = serviceStateStore.get_int(ServiceStateStore.KEY_PLAYER_STOPPED_TIMESTAMP)
 
     if player_stopped_timestamp is None:
-        serviceStateStore.save(KEY_PLAYER_STOPPED_TIMESTAMP, str(current_timestamp()))
+        serviceStateStore.save(ServiceStateStore.KEY_PLAYER_STOPPED_TIMESTAMP, str(current_timestamp()))
     else:
         if is_sleep_timeout_reached():
             Shutdown.halt()

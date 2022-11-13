@@ -45,6 +45,8 @@ class BaseStore:
 
 class ServiceStateStore(BaseStore):
     KEY_LAST_SCANNED_RFID = "last-scanned-rfid"
+    KEY_PLAYER_STOPPED_TIMESTAMP = "player_stopped_timestamp"
+    KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS = "sleep_timer_timeout_in_seconds"
 
     def __init__(self):
         BaseStore.__init__(self, FileSystem.DATA_DIR, "service-state-store")
