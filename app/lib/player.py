@@ -26,6 +26,7 @@ class LocalFilePlayer(Player):
     VOLUME_MIN_VALUE = 10
     VOLUME_MAX_VALUE = 100
     VOLUME_CHANGE_VALUE = 10
+    AMIXER_CONTROL_NAME = "Headphone"
 
     def __init__(self, service_state_store):
         self.service_state_store = service_state_store
@@ -90,7 +91,7 @@ class LocalFilePlayer(Player):
     @staticmethod
     def get_volume():
         level = Shell.execute(
-            "amixer sget Headphone | awk -F 'Playback|[][]' 'BEGIN {RS=\"\"}{ print substr($5, 1, length($5)-1) }'")
+            f"amixer sget {LocalFilePlayer.AMIXER_CONTROL_NAME} | awk -F 'Playback|[][]' 'BEGIN {RS=\"\"}{ print substr($5, 1, length($5)-1) }'")
         try:
             return int(level)
         except ValueError:
@@ -99,7 +100,7 @@ class LocalFilePlayer(Player):
     @staticmethod
     def __set_volume(level):
         if 0 <= level <= 100:
-            Shell.execute(f"amixer set Headphone {level}%")
+            Shell.execute(f"amixer set {LocalFilePlayer.AMIXER_CONTROL_NAME} {level}%")
         else:
             Logger.log(f"Invalid volume of [{level}]. The volume level needs to be between 0 and 100.")
 
