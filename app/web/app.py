@@ -4,6 +4,7 @@ from lib.command import SystemCommand
 from lib.file_system import FileSystem
 from lib.player import LocalFilePlayer
 from lib.shutdown import Shutdown
+from lib.sleep_timer import SleepTimer
 from lib.store import ServiceStateStore, SystemTagStore
 from lib.system_info import SystemInfo
 from lib.zip import Zip
@@ -13,6 +14,7 @@ app = Flask(__name__)
 serviceStateStore = ServiceStateStore()
 systemTagStore = SystemTagStore()
 player = LocalFilePlayer(serviceStateStore)
+sleep_timer = SleepTimer(serviceStateStore, player)
 
 
 # css style from: https://moderncss.dev/custom-select-styles-with-pure-css/
@@ -22,18 +24,20 @@ def index():
     if request.method == 'POST':
         is_sleep_timer_enabled = request.form.get("enable-sleep-timer") == "on"
         if is_sleep_timer_enabled:
-            sleep_timer_timeout_in_seconds = int(request.form.get("sleep-timer-timeout")) * 60
-            serviceStateStore.save(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS, sleep_timer_timeout_in_seconds)
-            message = f"Sleep timer enabled with {sleep_timer_timeout_in_seconds} seconds"
-        else:
-            if serviceStateStore.get_string(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS) is not None:
-                serviceStateStore.delete(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS)
-                message = f"Sleep timer disabled"
+            timeout_value = request.form.get("sleep-timer-timeout-in-minutes")
+            sleep_timer_timeout_in_seconds = int(timeout_value) * 60
+            sleep_timer.enable(sleep_timer_timeout_in_seconds)
 
-    sleep_timer_timeout = serviceStateStore.get_string(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS)
+            message = f"Sleep timer enabled with {timeout_value} minutes"
+        else:
+            if sleep_timer.is_enabled():
+                message = f"Sleep timer disabled"
+            sleep_timer.disable()
+
+    sleep_timer_timeout_in_minutes = sleep_timer.get_timeout() / 60 if not None else None
 
     return render_template('index.html', volume=player.get_volume(), msg=message,
-                           sleep_timer_timeout=sleep_timer_timeout)
+                           sleep_timer_timeout=sleep_timer_timeout_in_minutes)
 
 
 @app.route('/backup', methods=["GET", "POST"])

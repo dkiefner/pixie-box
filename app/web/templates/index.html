@@ -72,10 +72,10 @@
                 <div>
                     <label for="sleep-timer-timeout">Timeout:</label>
                     {% if sleep_timer_timeout %}
-                    <input type="text" id="sleep-timer-timeout" name="sleep-timer-timeout" value="{{ sleep_timer_timeout }}"
+                    <input type="text" id="sleep-timer-timeout" name="sleep-timer-timeout-in-minutes" value="{{ sleep_timer_timeout }}"
                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                     {% else %}
-                    <input type="text" id="sleep-timer-timeout" name="sleep-timer-timeout"
+                    <input type="text" id="sleep-timer-timeout" name="sleep-timer-timeout-in-minutes"
                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                     {% endif %}
                     minutes
