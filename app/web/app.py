@@ -34,7 +34,9 @@ def index():
                 message = f"Sleep timer disabled"
             sleep_timer.disable()
 
-    sleep_timer_timeout_in_minutes = sleep_timer.get_timeout() / 60 if not None else None
+    sleep_timer_timeout_in_minutes = None
+    if sleep_timer.get_timeout() is not None:
+        sleep_timer_timeout_in_minutes = sleep_timer.get_timeout() / 60
 
     return render_template('index.html', volume=player.get_volume(), msg=message,
                            sleep_timer_timeout=sleep_timer_timeout_in_minutes)

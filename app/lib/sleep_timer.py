@@ -43,7 +43,11 @@ class SleepTimer:
 
     def get_timeout(self):
         timeout = self.service_state_store.get_string(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS)
-        return int(timeout) if not None else None
+
+        if timeout is not None:
+            return int(timeout)
+        else:
+            return None
 
     def sleep(self):
         self.stop_timer()
