@@ -77,12 +77,17 @@ def assign_tag():
             FileSystem.move(FileSystem.UPLOAD_DIR, str(rfid_path))
             FileSystem.delete_content(FileSystem.UPLOAD_DIR)
 
+            # delete system tag if assigned previously
+            systemTagStore.delete(tag)
+
             result_message = f"Adding audio content to RFID tag {tag} successful."
 
         tag = request.form.get("systemTag")
         if tag is not None:
             command = request.form.get("command")
             systemTagStore.save(tag, command)
+            # delete audio tag if it was assigned previously
+            FileSystem.delete_content(FileSystem.path(FileSystem.RFID_BASE_DIR, tag))
 
             result_message = f"Adding system command {command} to RFID tag {tag} successful."
 

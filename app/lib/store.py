@@ -39,7 +39,8 @@ class BaseStore:
     def delete(self, key):
         Logger.log(f"Deleting {key}")
         with dbm.open(self.__store_path, 'c') as store:
-            del store[str(key)]
+            if store.get(str(key)) is not None:
+                del store[str(key)]
             store.close()
 
 
