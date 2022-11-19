@@ -23,9 +23,9 @@ class Player:
 
 class LocalFilePlayer(Player):
     KEY_LAST_PLAYED_URI = "last-played-uri"
-    VOLUME_MIN_VALUE = 10
+    VOLUME_MIN_VALUE = 5
     VOLUME_MAX_VALUE = 100
-    VOLUME_CHANGE_VALUE = 10
+    VOLUME_CHANGE_VALUE = 5
 
     def __init__(self, service_state_store):
         self.service_state_store = service_state_store
