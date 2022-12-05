@@ -40,8 +40,20 @@
         </div>
 
         <!-- Tab content -->
-        <div id="Pixiebox" class="tabcontent">{{ pixiebox_logs }}</div>
-        <div id="WebApp" class="tabcontent">{{ web_app_logs }}</div>
-        <div id="SleepTimer" class="tabcontent">{{ sleep_timer_logs }}</div>
+        <div id="Pixiebox" class="tabcontent">
+            {% for line in pixiebox_logs %}
+                {{line}}<br>
+            {% endfor %}
+        </div>
+        <div id="WebApp" class="tabcontent">
+            {% for line in web_app_logs %}
+                {{line}}<br>
+            {% endfor %}
+        </div>
+        <div id="SleepTimer" class="tabcontent">
+            {% for line in sleep_timer_logs %}
+                {{line}}<br>
+            {% endfor %}
+        </div>
     </body>
 </html>
