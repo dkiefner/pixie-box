@@ -5,6 +5,8 @@
 
     <link rel="stylesheet" href='/static/css/style.css'/>
 
+    <script src="/static/js/tabs.js" language="JavaScript" type="text/javascript"></script>
+
     <head>
       <title>Pixiebox</title>
     </head>
@@ -20,11 +22,26 @@
 
         <h1>System</h1>
 
+        <h2>Health Status</h2>
+
         <div>
             GPU Temp : {{ gpu_temp }}°C
         </div>
         <div>
             CPU Temp : {{ cpu_temp }}°C
         </div>
+
+        <h2>Logs</h2>
+
+        <div class="tab">
+          <button class="tablinks" onclick="openTab(event, 'Pixiebox')" id="defaultOpen">Pixiebox</button>
+          <button class="tablinks" onclick="openTab(event, 'WebApp')">Web App</button>
+          <button class="tablinks" onclick="openTab(event, 'SleepTimer')">Sleep Timer</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="Pixiebox" class="tabcontent">{{ pixiebox_logs }}</div>
+        <div id="WebApp" class="tabcontent">{{ web_app_logs }}</div>
+        <div id="SleepTimer" class="tabcontent">{{ sleep_timer_logs }}</div>
     </body>
 </html>

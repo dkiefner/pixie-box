@@ -35,8 +35,8 @@ def index():
             sleep_timer.disable()
 
     sleep_timer_timeout_in_minutes = None
-    if sleep_timer.get_timeout() is not None:
-        sleep_timer_timeout_in_minutes = int(sleep_timer.get_timeout() / 60)
+    # if sleep_timer.get_timeout() is not None:
+    #     sleep_timer_timeout_in_minutes = int(sleep_timer.get_timeout() / 60)
 
     return render_template('index.html', volume=player.get_volume(), msg=message,
                            sleep_timer_timeout=sleep_timer_timeout_in_minutes)
@@ -98,7 +98,9 @@ def assign_tag():
 
 @app.route('/system_info')
 def system_info():
-    return render_template('system_info.html', gpu_temp=SystemInfo.gpu_temp(), cpu_temp=SystemInfo.cpu_temp())
+    return render_template('system_info.html', gpu_temp=SystemInfo.gpu_temp(), cpu_temp=SystemInfo.cpu_temp(),
+                           pixiebox_logs=SystemInfo.pixiebox_logs(), web_app_logs=SystemInfo.web_app_logs(),
+                           sleep_timer_logs=SystemInfo.sleep_timer_logs())
 
 
 # CTA endpoints
