@@ -11,4 +11,4 @@ class SystemInfo:
 
     @staticmethod
     def cpu_temp():
-        return Shell.execute("cpu=$(</sys/class/thermal/thermal_zone0/temp);echo \"$((cpu/1000))\"")
+        return Shell.execute("cpu=$(</sys/class/thermal/thermal_zone0/temp);echo $((cpu/1000))")
