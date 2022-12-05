@@ -4,6 +4,7 @@ from lib.shell import Shell
 
 
 class SystemInfo:
+    LOG_MAX_LINES = 500
 
     @staticmethod
     def gpu_temp():
@@ -15,12 +16,12 @@ class SystemInfo:
 
     @staticmethod
     def pixiebox_logs():
-        return Shell.execute("sudo journalctl --unit=pixiebox --no-pager")
+        return Shell.execute(f"sudo journalctl --unit=pixiebox -n {SystemInfo.LOG_MAX_LINES} --no-pager")
 
     @staticmethod
     def web_app_logs():
-        return Shell.execute("sudo journalctl --unit=pixiebox_webapp --no-pager")
+        return Shell.execute(f"sudo journalctl --unit=pixiebox_webapp -n {SystemInfo.LOG_MAX_LINES} --no-pager")
 
     @staticmethod
     def sleep_timer_logs():
-        return Shell.execute("sudo journalctl --unit=sleep_timer --no-pager")
+        return Shell.execute(f"sudo journalctl --unit=sleep_timer -n {SystemInfo.LOG_MAX_LINES} --no-pager")
