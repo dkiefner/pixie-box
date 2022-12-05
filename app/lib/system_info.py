@@ -16,15 +16,17 @@ class SystemInfo:
 
     @staticmethod
     def pixiebox_logs():
-        return Shell.execute(f"sudo journalctl --unit=pixiebox -r -n {SystemInfo.LOG_MAX_LINES} --no-pager").split('\n')
+        return SystemInfo.__get_journal_for_service("pixiebox")
 
     @staticmethod
     def web_app_logs():
-        return Shell.execute(
-            f"sudo journalctl --unit=pixiebox_webapp -r -n {SystemInfo.LOG_MAX_LINES} --no-pager").split(
-            '\n')
+        return SystemInfo.__get_journal_for_service("pixiebox_webapp")
 
     @staticmethod
     def sleep_timer_logs():
-        return Shell.execute(f"sudo journalctl --unit=sleep_timer -r -n {SystemInfo.LOG_MAX_LINES} --no-pager").split(
-            '\n')
+        return SystemInfo.__get_journal_for_service("sleep_timer")
+
+    @staticmethod
+    def __get_journal_for_service(service_name):
+        return Shell.execute(
+            f"sudo journalctl --unit={service_name} -r -n {SystemInfo.LOG_MAX_LINES} --no-pager").split('\n')
