@@ -57,3 +57,23 @@ class SystemTagStore(BaseStore):
 
     def __init__(self):
         BaseStore.__init__(self, FileSystem.DATA_DIR, "system-tag-store")
+
+
+class FakeStore(BaseStore):
+    __store = {}
+
+    def __init__(self):
+        BaseStore.__init__(self, "path", "name")
+
+    def save(self, key, value):
+        self.__store[str(key)] = str(value)
+
+    def get_string(self, key):
+        key_as_str = str(key)
+        if key_as_str in self.__store:
+            return self.__store[str(key)]
+        else:
+            return None
+
+    def delete(self, key):
+        self.__store[str(key)] = None

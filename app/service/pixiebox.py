@@ -4,32 +4,37 @@ import atexit
 import time
 
 from lib.command import SystemCommand
+from lib.di import ServiceLocatorFactory, ServiceName
+from lib.file_system import FileSystem
+from lib.logger import Logger
 from lib.player import LocalFilePlayer, SystemAudioUris
 from lib.rfid_reader import MFRC522Reader
 from lib.shutdown import Shutdown
-from lib.store import *
+from lib.store import ServiceStateStore
 
-rfidReader = MFRC522Reader()
-systemTagStore = SystemTagStore()
-serviceStateStore = ServiceStateStore()
-player = LocalFilePlayer(serviceStateStore)
+service_locator = ServiceLocatorFactory.create()
+
+rfid_reader = MFRC522Reader()
+service_state_store = service_locator.get(ServiceName.ServiceStateStore)
+system_tag_store = service_locator.get(ServiceName.SystemTagStore)
+player = LocalFilePlayer(service_state_store)
 
 
 def exit_handler():
     Logger.log("Shutting down PixieBox!")
-    rfidReader.cleanup()
+    rfid_reader.cleanup()
 
 
 def read():
-    tag_id = rfidReader.read()
-    serviceStateStore.save(ServiceStateStore.KEY_LAST_SCANNED_RFID, tag_id)
+    tag_id = rfid_reader.read()
+    service_state_store.save(ServiceStateStore.KEY_LAST_SCANNED_RFID, tag_id)
 
     tag_dir = FileSystem.path(FileSystem.RFID_BASE_DIR, tag_id)
     if tag_dir.exists():
         Logger.log("Audio tag id scanned.")
         player.play_rfid(tag_id)
     else:
-        cmd = systemTagStore.get_string(tag_id)
+        cmd = system_tag_store.get_string(tag_id)
         if cmd is not None:
             Logger.log(f"System tag id scanned for command: {cmd}")
 

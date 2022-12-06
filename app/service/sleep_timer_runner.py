@@ -2,12 +2,14 @@
 
 import time
 
+from lib.di import ServiceLocatorFactory, ServiceName
+from lib.logger import Logger
 from lib.player import LocalFilePlayer
 from lib.sleep_timer import SleepTimer
-from lib.store import ServiceStateStore
-from lib.logger import Logger
 
-service_state_store = ServiceStateStore()
+service_locator = ServiceLocatorFactory.create()
+
+service_state_store = service_locator.get(ServiceName.ServiceStateStore)
 player = LocalFilePlayer(service_state_store)
 sleep_timer = SleepTimer(service_state_store, player)
 

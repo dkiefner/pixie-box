@@ -1,20 +1,23 @@
 from flask import Flask, render_template, send_file, request, redirect, url_for
 
 from lib.command import SystemCommand
+from lib.di import ServiceLocatorFactory, ServiceName
 from lib.file_system import FileSystem
 from lib.player import LocalFilePlayer
 from lib.shutdown import Shutdown
 from lib.sleep_timer import SleepTimer
-from lib.store import ServiceStateStore, SystemTagStore
+from lib.store import ServiceStateStore
 from lib.system_info import SystemInfo
 from lib.zip import Zip
 
 app = Flask(__name__)
 
-serviceStateStore = ServiceStateStore()
-systemTagStore = SystemTagStore()
-player = LocalFilePlayer(serviceStateStore)
-sleep_timer = SleepTimer(serviceStateStore, player)
+service_locator = ServiceLocatorFactory.create(is_development=True)
+
+service_state_store = service_locator.get(ServiceName.ServiceStateStore)
+system_tag_store = service_locator.get(ServiceName.SystemTagStore)
+player = LocalFilePlayer(service_state_store)
+sleep_timer = SleepTimer(service_state_store, player)
 
 
 # css style from: https://moderncss.dev/custom-select-styles-with-pure-css/
@@ -78,14 +81,14 @@ def assign_tag():
             FileSystem.delete_content(FileSystem.UPLOAD_DIR)
 
             # delete system tag if assigned previously
-            systemTagStore.delete(tag)
+            system_tag_store.delete(tag)
 
             result_message = f"Adding audio content to RFID tag {tag} successful."
 
         tag = request.form.get("systemTag")
         if tag is not None:
             command = request.form.get("command")
-            systemTagStore.save(tag, command)
+            system_tag_store.save(tag, command)
             # delete audio tag if it was assigned previously
             FileSystem.delete_content(FileSystem.path(FileSystem.RFID_BASE_DIR, tag))
 
@@ -140,5 +143,5 @@ def last_scanned_tag():
     if player.is_playing():
         player.stop()
 
-    last_scanned_rfid = serviceStateStore.get_string(ServiceStateStore.KEY_LAST_SCANNED_RFID)
+    last_scanned_rfid = service_state_store.get_string(ServiceStateStore.KEY_LAST_SCANNED_RFID)
     return last_scanned_rfid if last_scanned_rfid is not None else ""
