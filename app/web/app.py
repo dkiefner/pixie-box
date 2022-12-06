@@ -3,8 +3,6 @@ from flask import Flask, render_template, send_file, request, redirect, url_for
 from lib.command import SystemCommand
 from lib.di import ServiceLocatorFactory, ServiceName
 from lib.file_system import FileSystem
-from lib.shutdown import Shutdown
-from lib.sleep_timer import SleepTimer
 from lib.store import ServiceStateStore
 from lib.system_info import SystemInfo
 from lib.zip import Zip
@@ -13,11 +11,12 @@ app = Flask(__name__)
 
 service_locator = ServiceLocatorFactory.create()
 
-service_state_store = service_locator.get(ServiceName.ServiceStateStore)
-system_tag_store = service_locator.get(ServiceName.SystemTagStore)
 player = service_locator.get(ServiceName.Player)
+service_state_store = service_locator.get(ServiceName.ServiceStateStore)
+shutdown = service_locator.get(ServiceName.Shutdown)
+system_tag_store = service_locator.get(ServiceName.SystemTagStore)
 volume = service_locator.get(ServiceName.Volume)
-sleep_timer = SleepTimer(service_state_store, player)
+sleep_timer = service_locator.get(ServiceName.SleepTimer)
 
 
 # css style from: https://moderncss.dev/custom-select-styles-with-pure-css/
@@ -121,7 +120,7 @@ def run_system_command():
         volume.down()
         return redirect(url_for('index'))
     elif command == SystemCommand.SHUTDOWN.name:
-        Shutdown.halt()
+        shutdown.halt()
     elif command == SystemCommand.NEXT.name:
         player.next()
     elif command == SystemCommand.PREVIOUS.name:

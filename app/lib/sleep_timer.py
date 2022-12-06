@@ -3,15 +3,15 @@
 import time
 
 from lib.logger import Logger
-from lib.shutdown import Shutdown
 from lib.store import ServiceStateStore
 
 
 class SleepTimer:
 
-    def __init__(self, service_state_store, player):
+    def __init__(self, service_state_store, player, shutdown):
         self.service_state_store = service_state_store
         self.player = player
+        self.shutdown = shutdown
 
     def enable(self, timeout_in_seconds):
         Logger.log("Sleep timer enabled")
@@ -62,7 +62,7 @@ class SleepTimer:
 
     def sleep(self):
         self.stop_timer()
-        Shutdown.halt()
+        self.shutdown.halt()
 
     @staticmethod
     def __current_timestamp():
