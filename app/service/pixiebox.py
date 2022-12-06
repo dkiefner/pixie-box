@@ -7,7 +7,7 @@ from lib.command import SystemCommand
 from lib.di import ServiceLocatorFactory, ServiceName
 from lib.file_system import FileSystem
 from lib.logger import Logger
-from lib.player import LocalFilePlayer, SystemAudioUris
+from lib.player import SystemAudioUris
 from lib.rfid_reader import MFRC522Reader
 from lib.shutdown import Shutdown
 from lib.store import ServiceStateStore
@@ -17,7 +17,8 @@ service_locator = ServiceLocatorFactory.create()
 rfid_reader = MFRC522Reader()
 service_state_store = service_locator.get(ServiceName.ServiceStateStore)
 system_tag_store = service_locator.get(ServiceName.SystemTagStore)
-player = LocalFilePlayer(service_state_store)
+player = service_locator.get(ServiceName.Player)
+volume = service_locator.get(ServiceName.Volume)
 
 
 def exit_handler():
@@ -41,9 +42,9 @@ def read():
             if SystemCommand[cmd] is SystemCommand.STOP:
                 player.stop()
             elif SystemCommand[cmd] is SystemCommand.VOLUME_UP:
-                player.volume_up()
+                volume.up()
             elif SystemCommand[cmd] is SystemCommand.VOLUME_DOWN:
-                player.volume_down()
+                volume.down()
             elif SystemCommand[cmd] is SystemCommand.SHUTDOWN:
                 Shutdown.halt()
             elif SystemCommand[cmd] is SystemCommand.NEXT:
