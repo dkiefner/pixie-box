@@ -3,6 +3,7 @@
 from enum import Enum
 
 from lib.player import FakePlayer, LocalFilePlayer
+from lib.rfid_reader import MFRC522Reader
 from lib.shutdown import FakeShutdown, SystemShutdown
 from lib.sleep_timer import SleepTimer
 from lib.store import FakeStore, ServiceStateStore, SystemTagStore
@@ -11,6 +12,7 @@ from lib.volume import FakeVolume, AMixerVolume
 
 class ServiceName(Enum):
     Player = "Player"
+    RFIDReader = "RFIDReader"
     ServiceStateStore = "ServiceStateStore"
     Shutdown = "Shutdown"
     SleepTimer = "SleepTimer"
@@ -54,5 +56,6 @@ class ServiceLocatorFactory:
                              locator.get(ServiceName.Player),
                              locator.get(ServiceName.Shutdown)
                          ))
+        locator.register(ServiceName.RFIDReader, MFRC522Reader())
 
         return locator

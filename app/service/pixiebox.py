@@ -8,13 +8,12 @@ from lib.di import ServiceLocatorFactory, ServiceName
 from lib.file_system import FileSystem
 from lib.logger import Logger
 from lib.player import SystemAudioUris
-from lib.rfid_reader import MFRC522Reader
 from lib.store import ServiceStateStore
 
 service_locator = ServiceLocatorFactory.create()
 
-rfid_reader = MFRC522Reader()
 player = service_locator.get(ServiceName.Player)
+rfid_reader = service_locator.get(ServiceName.RFIDReader)
 service_state_store = service_locator.get(ServiceName.ServiceStateStore)
 shutdown = service_locator.get(ServiceName.Shutdown)
 system_tag_store = service_locator.get(ServiceName.SystemTagStore)
