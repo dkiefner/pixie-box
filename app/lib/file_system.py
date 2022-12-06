@@ -4,23 +4,53 @@ import os
 import pathlib
 
 from lib.logger import Logger
-from lib.shell import Shell
 
 
 class FileSystem:
-    ROOT_DIR = "/home/pi/pixiebox/"
-    DATA_DIR = f"{ROOT_DIR}data/"
-    RFID_BASE_DIR = f"{DATA_DIR}audio/rfid/"
-    TEMP_DIR = f"{ROOT_DIR}tmp/"
-    UPLOAD_DIR = f"{TEMP_DIR}upload/"
-    SYSTEM_AUDIO_DIR = f"{ROOT_DIR}audio/system/"
+    def __init__(self, root_dir):
+        self.root_dir = root_dir
 
-    @staticmethod
-    def path(base_path, directory):
+    def get_data_dir(self):
+        return f"{self.root_dir}data/"
+
+    def get_rfid_base_dir(self):
+        return f"{self.get_data_dir()}audio/rfid/"
+
+    def get_temp_dir(self):
+        return f"{self.root_dir}tmp/"
+
+    def get_upload_dir(self):
+        return f"{self.get_temp_dir()}upload/"
+
+    def get_system_audio_dir(self):
+        return f"{self.root_dir}audio/system/"
+
+    def path(self, base_path, directory):
+        pass
+
+    def move(self, source, target):
+        pass
+
+    def save(self, file, path):
+        pass
+
+    def delete_content(self, directory_path):
+        pass
+
+    def create_path(self, path):
+        pass
+
+
+class RealFileSystem(FileSystem):
+
+    def __init__(self, shell, root_dir):
+        super().__init__(root_dir)
+        self.shell = shell
+
+    def path(self, base_path, directory):
         return pathlib.Path(f"{base_path}{directory}/")
 
-    @staticmethod
-    def move(source, target):
+    def move(self, source, target):
         if source[-1] != '/':
             source += '/'
         if target[-1] != '/':
@@ -32,20 +62,17 @@ class FileSystem:
             Logger.log(f"Moving file: {str(file)}")
             os.rename(source + file, target + file)
 
-    @staticmethod
-    def save(file, path):
-        FileSystem.create_path(path)
+    def save(self, file, path):
+        self.create_path(path)
         file_path = os.path.join(path, file.filename)
         Logger.log(f"Saving file {file.filename} to {path}")
         file.save(file_path)
         return file_path
 
-    @staticmethod
-    def delete_content(directory_path):
+    def delete_content(self, directory_path):
         Logger.log(f"Deleting all content in: {directory_path}")
-        Shell.execute(f"rm -rf {directory_path}*")
+        self.shell.execute(f"rm -rf {directory_path}*")
 
-    @staticmethod
-    def create_path(path):
+    def create_path(self, path):
         if not os.path.exists(path):
             os.makedirs(path)

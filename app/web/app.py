@@ -2,21 +2,21 @@ from flask import Flask, render_template, send_file, request, redirect, url_for
 
 from lib.command import SystemCommand
 from lib.di import ServiceLocatorFactory, ServiceName
-from lib.file_system import FileSystem
 from lib.store import ServiceStateStore
-from lib.system_info import SystemInfo
 
 app = Flask(__name__)
 
 service_locator = ServiceLocatorFactory.create()
 
 file_archiver = service_locator.get(ServiceName.FileArchiver)
+file_system = service_locator.get(ServiceName.FileSystem)
 player = service_locator.get(ServiceName.Player)
 service_state_store = service_locator.get(ServiceName.ServiceStateStore)
 shutdown = service_locator.get(ServiceName.Shutdown)
-system_tag_store = service_locator.get(ServiceName.SystemTagStore)
-volume = service_locator.get(ServiceName.Volume)
 sleep_timer = service_locator.get(ServiceName.SleepTimer)
+system_tag_store = service_locator.get(ServiceName.SystemTagStore)
+system_info = service_locator.get(ServiceName.SystemInfo)
+volume = service_locator.get(ServiceName.Volume)
 
 
 # css style from: https://moderncss.dev/custom-select-styles-with-pure-css/
@@ -48,9 +48,9 @@ def index():
 def backup():
     if request.method == 'POST':
         file = request.files['backup']
-        file_path = FileSystem.save(file, app.config['UPLOAD_DIR'])
-        file_archiver.extract(file_path, FileSystem.DATA_DIR)
-        FileSystem.delete_content(FileSystem.UPLOAD_DIR)
+        file_path = file_system.save(file, app.config['UPLOAD_DIR'])
+        file_archiver.extract(file_path, file_system.get_data_dir())
+        file_system.delete_content(file_system.get_upload_dir())
 
         return render_template("backup.html", msg="Backup successfully restored.")
     return render_template("backup.html", msg="")
@@ -65,19 +65,19 @@ def assign_tag():
         if tag is not None:
             # move all files into the UPLOAD_DIR
             for file in request.files.getlist('files'):
-                FileSystem.save(file, FileSystem.UPLOAD_DIR)
+                file_system.save(file, file_system.get_upload_dir())
 
             # clear all old files for the given tag if requested
-            rfid_path = FileSystem.path(FileSystem.RFID_BASE_DIR, tag)
+            rfid_path = file_system.path(file_system.get_rfid_base_dir(), tag)
             if request.form.get("overwrite"):
-                FileSystem.delete_content(rfid_path)
+                file_system.delete_content(rfid_path)
 
             # create the tag directory if necessary
-            FileSystem.create_path(rfid_path)
+            file_system.create_path(rfid_path)
 
             # move all files from UPLOAD_DIR to new tag directory and clear everything in UPLOAD_DIR
-            FileSystem.move(FileSystem.UPLOAD_DIR, str(rfid_path))
-            FileSystem.delete_content(FileSystem.UPLOAD_DIR)
+            file_system.move(file_system.get_upload_dir(), str(rfid_path))
+            file_system.delete_content(file_system.get_upload_dir())
 
             # delete system tag if assigned previously
             system_tag_store.delete(tag)
@@ -89,7 +89,7 @@ def assign_tag():
             command = request.form.get("command")
             system_tag_store.save(tag, command)
             # delete audio tag if it was assigned previously
-            FileSystem.delete_content(FileSystem.path(FileSystem.RFID_BASE_DIR, tag))
+            file_system.delete_content(file_system.path(file_system.get_rfid_base_dir(), tag))
 
             result_message = f"Adding system command {command} to RFID tag {tag} successful."
 
@@ -100,9 +100,9 @@ def assign_tag():
 
 @app.route('/system_info')
 def system_info():
-    return render_template('system_info.html', gpu_temp=SystemInfo.gpu_temp(), cpu_temp=SystemInfo.cpu_temp(),
-                           pixiebox_logs=SystemInfo.pixiebox_logs(), web_app_logs=SystemInfo.web_app_logs(),
-                           sleep_timer_logs=SystemInfo.sleep_timer_logs())
+    return render_template('system_info.html', gpu_temp=system_info.gpu_temp(), cpu_temp=system_info.cpu_temp(),
+                           pixiebox_logs=system_info.pixiebox_logs(), web_app_logs=system_info.web_app_logs(),
+                           sleep_timer_logs=system_info.sleep_timer_logs())
 
 
 # CTA endpoints
@@ -134,8 +134,8 @@ def run_system_command():
 @app.route('/export_backup')
 def export_backup():
     backup_file_path = file_archiver.create_from_directory(
-        FileSystem.DATA_DIR,
-        f"{FileSystem.TEMP_DIR}/pixiebox-backup"
+        file_system.get_data_dir(),
+        f"{file_system.get_temp_dir()}/pixiebox-backup"
     )
     return send_file(backup_file_path, as_attachment=True)
 

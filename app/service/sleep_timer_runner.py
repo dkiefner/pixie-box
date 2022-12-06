@@ -4,13 +4,11 @@ import time
 
 from lib.di import ServiceLocatorFactory, ServiceName
 from lib.logger import Logger
-from lib.sleep_timer import SleepTimer
 
 service_locator = ServiceLocatorFactory.create()
 
-service_state_store = service_locator.get(ServiceName.ServiceStateStore)
 player = service_locator.get(ServiceName.Player)
-sleep_timer = SleepTimer(service_state_store, player)
+sleep_timer = service_locator.get(ServiceName.SleepTimer)
 
 Logger.log("Starting sleep timer service")
 

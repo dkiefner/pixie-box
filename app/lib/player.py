@@ -1,13 +1,18 @@
 #!/usr/bin/env python
 
-from lib.file_system import FileSystem
 from lib.logger import Logger
-from lib.shell import Shell
 
 
 class SystemAudioUris:
-    SAD_TROMBONE = f"file://{FileSystem.SYSTEM_AUDIO_DIR}sad-trombone.wav"
-    GAME_BOY_START_UP = f"file://{FileSystem.SYSTEM_AUDIO_DIR}game-boy-startup.wav"
+
+    def __init__(self, file_system):
+        self.file_system = file_system
+
+    def sad_trombose(self):
+        return f"file://{self.file_system.get_system_audio_dir()}sad-trombone.wav"
+
+    def game_boy_start_up(self):
+        return f"file://{self.file_system.get_system_audio_dir()}game-boy-startup.wav"
 
 
 class Player:
@@ -36,8 +41,9 @@ class Player:
 class LocalFilePlayer(Player):
     KEY_LAST_PLAYED_URI = "last-played-uri"
 
-    def __init__(self, service_state_store):
+    def __init__(self, service_state_store, shell):
         self.service_state_store = service_state_store
+        self.shell = shell
 
     def play_rfid(self, tag_id):
         uri = self.__tag_id_to_uri(tag_id)
@@ -56,22 +62,22 @@ class LocalFilePlayer(Player):
         if self.is_playing(uri=uri):
             Logger.log("The current context is already playing.")
         else:
-            Shell.execute("mpc -q clear")
-            Shell.execute(f"mpc -q add {uri}")
-            Shell.execute("mpc -q play")
+            self.shell.execute("mpc -q clear")
+            self.shell.execute(f"mpc -q add {uri}")
+            self.shell.execute("mpc -q play")
             self.service_state_store.save(self.KEY_LAST_PLAYED_URI, uri)
 
     def stop(self):
-        Shell.execute("mpc -q stop")
+        self.shell.execute("mpc -q stop")
 
     def next(self):
-        Shell.execute("mpc -q next")
+        self.shell.execute("mpc -q next")
 
     def prev(self):
-        Shell.execute("mpc -q prev")
+        self.shell.execute("mpc -q prev")
 
     def is_playing(self, uri=None):
-        current = Shell.execute("mpc current")
+        current = self.shell.execute("mpc current")
         is_playing = len(current) > 0
         Logger.log(f"Is playing any context: {is_playing}")
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from lib.logger import Logger
-from lib.shell import Shell
 
 
 class Volume:
@@ -19,6 +18,9 @@ class AMixerVolume(Volume):
     MIN_VALUE = 5
     MAX_VALUE = 100
     CHANGE_VALUE = 5
+
+    def __init__(self, shell):
+        self.shell = shell
 
     def up(self):
         current = self.get()
@@ -45,17 +47,16 @@ class AMixerVolume(Volume):
             Logger.log(f"Cannot decrease volume. Minimum volume level of {self.MIN_VALUE}% reached.")
 
     def get(self):
-        level = Shell.execute(
+        level = self.shell.execute(
             "amixer sget Headphone | awk -F 'Playback|[][]' 'BEGIN {RS=\"\"}{ print substr($5, 1, length($5)-1) }'")
         try:
             return int(level)
         except ValueError:
             return -1
 
-    @staticmethod
-    def __set(level):
+    def __set(self, level):
         if 0 <= level <= 100:
-            Shell.execute(f"amixer set Headphone {level}%")
+            self.shell.execute(f"amixer set Headphone {level}%")
         else:
             Logger.log(f"Invalid volume of [{level}]. The volume level needs to be between 0 and 100.")
 

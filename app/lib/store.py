@@ -3,7 +3,6 @@
 import dbm
 import os
 
-from lib.file_system import FileSystem
 from lib.logger import Logger
 
 
@@ -49,14 +48,14 @@ class ServiceStateStore(BaseStore):
     KEY_PLAYER_STOPPED_TIMESTAMP = "player_stopped_timestamp"
     KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS = "sleep_timer_timeout_in_seconds"
 
-    def __init__(self):
-        BaseStore.__init__(self, FileSystem.DATA_DIR, "service-state-store")
+    def __init__(self, file_system):
+        BaseStore.__init__(self, file_system.get_data_dir(), "service-state-store")
 
 
 class SystemTagStore(BaseStore):
 
-    def __init__(self):
-        BaseStore.__init__(self, FileSystem.DATA_DIR, "system-tag-store")
+    def __init__(self, file_system):
+        BaseStore.__init__(self, file_system.get_data_dir(), "system-tag-store")
 
 
 class FakeStore(BaseStore):
