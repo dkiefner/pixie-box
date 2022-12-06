@@ -5,12 +5,12 @@ from lib.di import ServiceLocatorFactory, ServiceName
 from lib.file_system import FileSystem
 from lib.store import ServiceStateStore
 from lib.system_info import SystemInfo
-from lib.zip import Zip
 
 app = Flask(__name__)
 
 service_locator = ServiceLocatorFactory.create()
 
+file_archiver = service_locator.get(ServiceName.FileArchiver)
 player = service_locator.get(ServiceName.Player)
 service_state_store = service_locator.get(ServiceName.ServiceStateStore)
 shutdown = service_locator.get(ServiceName.Shutdown)
@@ -49,7 +49,7 @@ def backup():
     if request.method == 'POST':
         file = request.files['backup']
         file_path = FileSystem.save(file, app.config['UPLOAD_DIR'])
-        Zip.unzip(file_path, FileSystem.DATA_DIR)
+        file_archiver.extract(file_path, FileSystem.DATA_DIR)
         FileSystem.delete_content(FileSystem.UPLOAD_DIR)
 
         return render_template("backup.html", msg="Backup successfully restored.")
@@ -133,7 +133,10 @@ def run_system_command():
 
 @app.route('/export_backup')
 def export_backup():
-    backup_file_path = Zip.create_from_directory(FileSystem.DATA_DIR, f"{FileSystem.TEMP_DIR}/pixiebox-backup")
+    backup_file_path = file_archiver.create_from_directory(
+        FileSystem.DATA_DIR,
+        f"{FileSystem.TEMP_DIR}/pixiebox-backup"
+    )
     return send_file(backup_file_path, as_attachment=True)
 
 

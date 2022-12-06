@@ -8,9 +8,11 @@ from lib.shutdown import FakeShutdown, SystemShutdown
 from lib.sleep_timer import SleepTimer
 from lib.store import FakeStore, ServiceStateStore, SystemTagStore
 from lib.volume import FakeVolume, AMixerVolume
+from lib.zip import ZipArchiver
 
 
 class ServiceName(Enum):
+    FileArchiver = "FileArchiver"
     Player = "Player"
     RFIDReader = "RFIDReader"
     ServiceStateStore = "ServiceStateStore"
@@ -57,5 +59,6 @@ class ServiceLocatorFactory:
                              locator.get(ServiceName.Shutdown)
                          ))
         locator.register(ServiceName.RFIDReader, MFRC522Reader())
+        locator.register(ServiceName.FileArchiver, ZipArchiver())
 
         return locator
