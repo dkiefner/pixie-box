@@ -21,7 +21,7 @@ volume = service_locator.get(ServiceName.Volume)
 
 # css style from: https://moderncss.dev/custom-select-styles-with-pure-css/
 @app.route('/', methods=["GET", "POST"])
-def index():
+def index_page():
     message = ""
     if request.method == 'POST':
         is_sleep_timer_enabled = request.form.get("enable-sleep-timer") == "on"
@@ -45,7 +45,7 @@ def index():
 
 
 @app.route('/backup', methods=["GET", "POST"])
-def backup():
+def backup_page():
     if request.method == 'POST':
         file = request.files['backup']
         file_path = file_system.save(file, app.config['UPLOAD_DIR'])
@@ -57,7 +57,7 @@ def backup():
 
 
 @app.route('/assign_tag', methods=["GET", "POST"])
-def assign_tag():
+def assign_tag_page():
     result_message = ''
 
     if request.method == 'POST':
@@ -99,7 +99,7 @@ def assign_tag():
 
 
 @app.route('/system_info')
-def system_info():
+def system_info_page():
     return render_template('system_info.html', gpu_temp=system_info.gpu_temp(), cpu_temp=system_info.cpu_temp(),
                            pixiebox_logs=system_info.pixiebox_logs(), web_app_logs=system_info.web_app_logs(),
                            sleep_timer_logs=system_info.sleep_timer_logs())
