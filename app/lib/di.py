@@ -55,16 +55,17 @@ class ServiceLocatorFactory:
             locator.register(ServiceName.SystemTagStore, FakeStore())
             locator.register(ServiceName.Volume, FakeVolume())
         else:
-            service_state_store = ServiceStateStore()
             shell = CommandShell()
+            file_system = RealFileSystem(shell, "/home/pi/pixiebox/")
+            service_state_store = ServiceStateStore(file_system)
 
-            locator.register(ServiceName.FileSystem, RealFileSystem(shell, "/home/pi/pixiebox/"))
+            locator.register(ServiceName.FileSystem, file_system)
             locator.register(ServiceName.Player, LocalFilePlayer(service_state_store, shell))
             locator.register(ServiceName.ServiceStateStore, service_state_store)
             locator.register(ServiceName.Shell, shell)
             locator.register(ServiceName.Shutdown, SystemShutdown(shell))
             locator.register(ServiceName.SystemInfo, RealSystemInfo(shell))
-            locator.register(ServiceName.SystemTagStore, SystemTagStore())
+            locator.register(ServiceName.SystemTagStore, SystemTagStore(file_system))
             locator.register(ServiceName.Volume, AMixerVolume(shell))
 
         locator.register(ServiceName.SleepTimer,
