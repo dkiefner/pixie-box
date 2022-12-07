@@ -4,56 +4,62 @@ import atexit
 import time
 
 from lib.command import SystemCommand
-from lib.player import LocalFilePlayer, SystemAudioUris
-from lib.rfid_reader import MFRC522Reader
-from lib.shutdown import Shutdown
-from lib.store import *
+from lib.di import ServiceLocatorFactory, ServiceName
+from lib.logger import Logger
+from lib.player import SystemAudioUris
+from lib.store import ServiceStateStore
 
-rfidReader = MFRC522Reader()
-systemTagStore = SystemTagStore()
-serviceStateStore = ServiceStateStore()
-player = LocalFilePlayer(serviceStateStore)
+service_locator = ServiceLocatorFactory.create()
+
+file_system = service_locator.get(ServiceName.FileSystem)
+player = service_locator.get(ServiceName.Player)
+rfid_reader = service_locator.get(ServiceName.RFIDReader)
+service_state_store = service_locator.get(ServiceName.ServiceStateStore)
+shutdown = service_locator.get(ServiceName.Shutdown)
+system_audio_uris = SystemAudioUris(file_system)
+system_tag_store = service_locator.get(ServiceName.SystemTagStore)
+volume = service_locator.get(ServiceName.Volume)
 
 
 def exit_handler():
     Logger.log("Shutting down PixieBox!")
-    rfidReader.cleanup()
+    rfid_reader.cleanup()
 
 
 def read():
-    tag_id = rfidReader.read()
-    serviceStateStore.save(ServiceStateStore.KEY_LAST_SCANNED_RFID, tag_id)
+    tag_id = rfid_reader.read()
+    service_state_store.save(ServiceStateStore.KEY_LAST_SCANNED_RFID, tag_id)
 
-    tag_dir = FileSystem.path(FileSystem.RFID_BASE_DIR, tag_id)
+    tag_dir = file_system.path(file_system.get_rfid_base_dir(), tag_id)
     if tag_dir.exists():
         Logger.log("Audio tag id scanned.")
         player.play_rfid(tag_id)
     else:
-        cmd = systemTagStore.get_string(tag_id)
+        cmd = system_tag_store.get_string(tag_id)
         if cmd is not None:
             Logger.log(f"System tag id scanned for command: {cmd}")
 
             if SystemCommand[cmd] is SystemCommand.STOP:
                 player.stop()
             elif SystemCommand[cmd] is SystemCommand.VOLUME_UP:
-                player.volume_up()
+                volume.up()
             elif SystemCommand[cmd] is SystemCommand.VOLUME_DOWN:
-                player.volume_down()
+                volume.down()
             elif SystemCommand[cmd] is SystemCommand.SHUTDOWN:
-                Shutdown.halt()
+                shutdown.halt()
             elif SystemCommand[cmd] is SystemCommand.NEXT:
                 player.next()
             elif SystemCommand[cmd] is SystemCommand.PREVIOUS:
                 player.prev()
         else:
             Logger.log(f"Tag {tag_id} not registered.")
-            player.play_file(SystemAudioUris.SAD_TROMBONE)
+            player.play_file(system_audio_uris.sad_trombose())
 
 
 atexit.register(exit_handler)
 
 Logger.log("PixieBox started!")
-player.play_file(SystemAudioUris.GAME_BOY_START_UP)
+player.play_file(system_audio_uris.game_boy_start_up())
 
 while True:
     read()

@@ -1,12 +1,23 @@
 #!/usr/bin/env python
 
 from lib.logger import Logger
-from lib.shell import Shell
 
 
 class Shutdown:
+    def halt(self):
+        pass
 
-    @staticmethod
-    def halt():
+
+class SystemShutdown(Shutdown):
+
+    def __init__(self, shell):
+        self.shell = shell
+
+    def halt(self):
         Logger.log("Shutting down system.")
-        Shell.execute("shutdown -h now")
+        self.shell.execute("shutdown -h now")
+
+
+class FakeShutdown(Shutdown):
+    def halt(self):
+        Logger.log("Shutting down system.")

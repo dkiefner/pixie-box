@@ -1,25 +1,27 @@
 from flask import Flask, render_template, send_file, request, redirect, url_for
 
 from lib.command import SystemCommand
-from lib.file_system import FileSystem
-from lib.player import LocalFilePlayer
-from lib.shutdown import Shutdown
-from lib.sleep_timer import SleepTimer
-from lib.store import ServiceStateStore, SystemTagStore
-from lib.system_info import SystemInfo
-from lib.zip import Zip
+from lib.di import ServiceLocatorFactory, ServiceName
+from lib.store import ServiceStateStore
 
 app = Flask(__name__)
 
-serviceStateStore = ServiceStateStore()
-systemTagStore = SystemTagStore()
-player = LocalFilePlayer(serviceStateStore)
-sleep_timer = SleepTimer(serviceStateStore, player)
+service_locator = ServiceLocatorFactory.create()
+
+file_archiver = service_locator.get(ServiceName.FileArchiver)
+file_system = service_locator.get(ServiceName.FileSystem)
+player = service_locator.get(ServiceName.Player)
+service_state_store = service_locator.get(ServiceName.ServiceStateStore)
+shutdown = service_locator.get(ServiceName.Shutdown)
+sleep_timer = service_locator.get(ServiceName.SleepTimer)
+system_tag_store = service_locator.get(ServiceName.SystemTagStore)
+system_info = service_locator.get(ServiceName.SystemInfo)
+volume = service_locator.get(ServiceName.Volume)
 
 
 # css style from: https://moderncss.dev/custom-select-styles-with-pure-css/
 @app.route('/', methods=["GET", "POST"])
-def index():
+def index_page():
     message = ""
     if request.method == 'POST':
         is_sleep_timer_enabled = request.form.get("enable-sleep-timer") == "on"
@@ -38,24 +40,24 @@ def index():
     if sleep_timer.get_timeout() is not None:
         sleep_timer_timeout_in_minutes = int(sleep_timer.get_timeout() / 60)
 
-    return render_template('index.html', volume=player.get_volume(), msg=message,
+    return render_template('index.html', volume=volume.get(), msg=message,
                            sleep_timer_timeout=sleep_timer_timeout_in_minutes)
 
 
 @app.route('/backup', methods=["GET", "POST"])
-def backup():
+def backup_page():
     if request.method == 'POST':
         file = request.files['backup']
-        file_path = FileSystem.save(file, app.config['UPLOAD_DIR'])
-        Zip.unzip(file_path, FileSystem.DATA_DIR)
-        FileSystem.delete_content(FileSystem.UPLOAD_DIR)
+        file_path = file_system.save(file, app.config['UPLOAD_DIR'])
+        file_archiver.extract(file_path, file_system.get_data_dir())
+        file_system.delete_content(file_system.get_upload_dir())
 
         return render_template("backup.html", msg="Backup successfully restored.")
     return render_template("backup.html", msg="")
 
 
 @app.route('/assign_tag', methods=["GET", "POST"])
-def assign_tag():
+def assign_tag_page():
     result_message = ''
 
     if request.method == 'POST':
@@ -63,31 +65,31 @@ def assign_tag():
         if tag is not None:
             # move all files into the UPLOAD_DIR
             for file in request.files.getlist('files'):
-                FileSystem.save(file, FileSystem.UPLOAD_DIR)
+                file_system.save(file, file_system.get_upload_dir())
 
             # clear all old files for the given tag if requested
-            rfid_path = FileSystem.path(FileSystem.RFID_BASE_DIR, tag)
+            rfid_path = file_system.path(file_system.get_rfid_base_dir(), tag)
             if request.form.get("overwrite"):
-                FileSystem.delete_content(rfid_path)
+                file_system.delete_content(rfid_path)
 
             # create the tag directory if necessary
-            FileSystem.create_path(rfid_path)
+            file_system.create_path(rfid_path)
 
             # move all files from UPLOAD_DIR to new tag directory and clear everything in UPLOAD_DIR
-            FileSystem.move(FileSystem.UPLOAD_DIR, str(rfid_path))
-            FileSystem.delete_content(FileSystem.UPLOAD_DIR)
+            file_system.move(file_system.get_upload_dir(), str(rfid_path))
+            file_system.delete_content(file_system.get_upload_dir())
 
             # delete system tag if assigned previously
-            systemTagStore.delete(tag)
+            system_tag_store.delete(tag)
 
             result_message = f"Adding audio content to RFID tag {tag} successful."
 
         tag = request.form.get("systemTag")
         if tag is not None:
             command = request.form.get("command")
-            systemTagStore.save(tag, command)
+            system_tag_store.save(tag, command)
             # delete audio tag if it was assigned previously
-            FileSystem.delete_content(FileSystem.path(FileSystem.RFID_BASE_DIR, tag))
+            file_system.delete_content(file_system.path(file_system.get_rfid_base_dir(), tag))
 
             result_message = f"Adding system command {command} to RFID tag {tag} successful."
 
@@ -97,10 +99,10 @@ def assign_tag():
 
 
 @app.route('/system_info')
-def system_info():
-    return render_template('system_info.html', gpu_temp=SystemInfo.gpu_temp(), cpu_temp=SystemInfo.cpu_temp(),
-                           pixiebox_logs=SystemInfo.pixiebox_logs(), web_app_logs=SystemInfo.web_app_logs(),
-                           sleep_timer_logs=SystemInfo.sleep_timer_logs())
+def system_info_page():
+    return render_template('system_info.html', gpu_temp=system_info.gpu_temp(), cpu_temp=system_info.cpu_temp(),
+                           pixiebox_logs=system_info.pixiebox_logs(), web_app_logs=system_info.web_app_logs(),
+                           sleep_timer_logs=system_info.sleep_timer_logs())
 
 
 # CTA endpoints
@@ -112,13 +114,13 @@ def run_system_command():
     if command == SystemCommand.STOP.name:
         player.stop()
     elif command == SystemCommand.VOLUME_UP.name:
-        player.volume_up()
+        volume.up()
         return redirect(url_for('index'))
     elif command == SystemCommand.VOLUME_DOWN.name:
-        player.volume_down()
+        volume.down()
         return redirect(url_for('index'))
     elif command == SystemCommand.SHUTDOWN.name:
-        Shutdown.halt()
+        shutdown.halt()
     elif command == SystemCommand.NEXT.name:
         player.next()
     elif command == SystemCommand.PREVIOUS.name:
@@ -131,7 +133,10 @@ def run_system_command():
 
 @app.route('/export_backup')
 def export_backup():
-    backup_file_path = Zip.create_from_directory(FileSystem.DATA_DIR, f"{FileSystem.TEMP_DIR}/pixiebox-backup")
+    backup_file_path = file_archiver.create_from_directory(
+        file_system.get_data_dir(),
+        f"{file_system.get_temp_dir()}/pixiebox-backup"
+    )
     return send_file(backup_file_path, as_attachment=True)
 
 
@@ -140,5 +145,5 @@ def last_scanned_tag():
     if player.is_playing():
         player.stop()
 
-    last_scanned_rfid = serviceStateStore.get_string(ServiceStateStore.KEY_LAST_SCANNED_RFID)
+    last_scanned_rfid = service_state_store.get_string(ServiceStateStore.KEY_LAST_SCANNED_RFID)
     return last_scanned_rfid if last_scanned_rfid is not None else ""

@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
 from lib.command import SystemCommand
+from lib.di import ServiceLocatorFactory, ServiceName
 from lib.rfid_reader import MFRC522Reader
-from lib.store import SystemTagStore
+
+service_locator = ServiceLocatorFactory.create()
+system_tag_store = service_locator.get(ServiceName.SystemTagStore)
 
 print("Which system action do you want to record?:")
 print("1) Stop playing music")
@@ -26,8 +29,7 @@ while True:
         print(f"Please use the RFID tag you want to link to the action '{keyToCommandDict[input_key]}'")
         rfidReader = MFRC522Reader()
         rfid_tag = rfidReader.read()
-        store = SystemTagStore()
-        store.save(rfid_tag, keyToCommandDict[input_key])
+        system_tag_store.save(rfid_tag, keyToCommandDict[input_key])
         rfidReader.cleanup()
         break
     else:
