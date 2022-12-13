@@ -115,10 +115,10 @@ def run_system_command():
         player.stop()
     elif command == SystemCommand.VOLUME_UP.name:
         volume.up()
-        return redirect(url_for('index'))
+        return redirect(url_for('index_page'))
     elif command == SystemCommand.VOLUME_DOWN.name:
         volume.down()
-        return redirect(url_for('index'))
+        return redirect(url_for('index_page'))
     elif command == SystemCommand.SHUTDOWN.name:
         shutdown.halt()
     elif command == SystemCommand.NEXT.name:
