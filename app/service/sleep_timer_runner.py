@@ -20,7 +20,7 @@ while True:
     time.sleep(15)
 
     if sleep_timer.is_enabled():
-        if player.is_playing():
+        if player.is_playing() or sleep_timer.is_invalid():
             sleep_timer.stop_timer()
         else:
             sleep_timer.start_timer()
