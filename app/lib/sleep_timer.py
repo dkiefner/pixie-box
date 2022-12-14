@@ -47,6 +47,10 @@ class SleepTimer:
         player_stopped_timestamp = self.service_state_store.get_int(ServiceStateStore.KEY_PLAYER_STOPPED_TIMESTAMP)
         sleep_timer_timeout = self.service_state_store.get_int(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS)
         current_timestamp = self.__current_timestamp()
+
+        if player_stopped_timestamp is None or sleep_timer_timeout is None:
+            return False
+
         time_left = (player_stopped_timestamp + sleep_timer_timeout) - current_timestamp
 
         return time_left < -30
