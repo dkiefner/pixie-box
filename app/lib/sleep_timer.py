@@ -43,7 +43,7 @@ class SleepTimer:
     # This means we have a very old stopped time and the Pixiebox would shut down ~15s after startup
     # (because the sleep timeout has been reached).
     # -3s because the Raspberry Pi needs ~30s to boot + 15s initial sleep timeout
-    def is_valid(self):
+    def is_invalid(self):
         player_stopped_timestamp = self.service_state_store.get_int(ServiceStateStore.KEY_PLAYER_STOPPED_TIMESTAMP)
         sleep_timer_timeout = self.service_state_store.get_int(ServiceStateStore.KEY_SLEEP_TIMER_TIMEOUT_IN_SECONDS)
         current_timestamp = self.__current_timestamp()
