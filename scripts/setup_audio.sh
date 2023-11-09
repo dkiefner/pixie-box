@@ -31,4 +31,4 @@ systemctl start mopidy
 systemctl status mopidy
 
 # set volume to 65%
-amixer set Headphone 65%
+amixer set PCM 65%

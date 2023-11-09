@@ -48,7 +48,7 @@ class AMixerVolume(Volume):
 
     def get(self):
         level = self.shell.execute(
-            "amixer sget Headphone | awk -F 'Playback|[][]' 'BEGIN {RS=\"\"}{ print substr($5, 1, length($5)-1) }'")
+            "amixer sget PCM | awk -F 'Playback|[][]' 'BEGIN {RS=\"\"}{ print substr($5, 1, length($5)-1) }'")
         try:
             return int(level)
         except ValueError:
@@ -56,7 +56,7 @@ class AMixerVolume(Volume):
 
     def __set(self, level):
         if 0 <= level <= 100:
-            self.shell.execute(f"amixer set Headphone {level}%")
+            self.shell.execute(f"amixer set PCM {level}%")
         else:
             Logger.log(f"Invalid volume of [{level}]. The volume level needs to be between 0 and 100.")
 
