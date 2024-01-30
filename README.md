@@ -17,6 +17,31 @@ The goal is to strip down the complex setup to very specific needs and requireme
 
 ## Setup
 
+### Raspberry Pi
+#### When writing the Raspberry OS
+Name the user `pi` as this will be used in most places of the service to reference resources.
+
+#### After installing the Raspberry OS
+One needs to change the following on the new boot partition:
+- create a new ssh file in the root volume: `touch ssh`
+- create a new `wpa_supplicant.conf` file in the root volume: `touch wpa_supplicant.conf`
+- add the following content to the `wpa_supplicant.conf`:
+```
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=SE
+network={
+    ssid="YOUR_NETWORK_NAME"
+    psk="YOUR_PASSWORD"
+    key_mgmt=WPA-PSK
+}
+network={
+    ssid="YOUR_NETWORK_NAME"
+    psk="YOUR_PASSWORD"
+    key_mgmt=WPA-PSK
+}
+```
+
 ### General
 
 After installing the Pi OS and booting up the Pi, the following steps are needed:
