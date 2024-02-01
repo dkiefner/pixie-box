@@ -24,6 +24,11 @@ mkdir -p ~/pixiebox/data/audio/rfid
 mkdir -p ~/pixiebox/tmp
 mkdir -p ~/pixiebox/upload
 
+# allow anyone to read/write/execute in these directories
+chmod -R 777 ~/pixiebox/data/audio/rfid
+chmod -R 777 ~/pixiebox/tmp
+chmod -R 777 ~/pixiebox/upload
+
 # add the app directory as a root module for python
 echo 'export PYTHONPATH="/home/pi/pixiebox/app"' >> /etc/profile
 
