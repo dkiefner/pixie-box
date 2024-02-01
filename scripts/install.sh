@@ -14,7 +14,7 @@ apt upgrade -y
 apt install -y python3-dev python3-pip libespeak1
 
 # install python spi module, rfid lib and text to speech lib
-pip3 install spidev mfrc522 pyttsx3 flask --break-system-packages
+pip3 install spidev mfrc522 pyttsx3 flask
 
 # install mopidy + client & codecs
 chmod +x ~/pixiebox/scripts/setup_audio.sh; ~/pixiebox/scripts/setup_audio.sh
