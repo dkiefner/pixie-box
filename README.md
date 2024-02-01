@@ -54,7 +54,7 @@ One-time download:
 cd; wget https://github.com/dkiefner/pixiebox/archive/refs/heads/main.zip; unzip main.zip; rm main.zip; mv pixiebox-main pixiebox
 ```
 
-Developer version (to use `git pull` to get updates from latest `master`):
+Developer version (use `git pull` to get updates from latest `master`):
 
 ```commandline
 cd; sudo apt install -y git; git clone https://github.com/dkiefner/pixiebox.git
@@ -267,3 +267,9 @@ Nov 08 19:57:42 raspberrypi python3[978]: Press CTRL+C to quit
 ```
 
 The important part to look for in the output is `Active: active (running)`.
+
+## The Result
+
+![GPIO Setup](https://github.com/dkiefner/pixiebox/blob/main/docs/resources/gpio.jpg?raw=true)
+![GPIO Setup](https://github.com/dkiefner/pixiebox/blob/main/docs/resources/lower.jpg?raw=true)
+![GPIO Setup](https://github.com/dkiefner/pixiebox/blob/main/docs/resources/upper.jpg?raw=true)
