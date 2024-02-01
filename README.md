@@ -11,14 +11,38 @@ The goal is to strip down the complex setup to very specific needs and requireme
 
 ## Hardware
 
+### Components
 - Raspberry Pi 4
 - RC522 RFID reader (13.56 Mhz)
 - Mifare RFID chips/tags (13.56 Mhz)
 
+### GPIO Setup
+This is the GPIO pin header overview (credit to https://www.raspberrypi.com/documentation/computers/raspberry-pi.html):
+![GPIO Overview of Raspberry Pi 4](https://github.com/dkiefner/pixiebox/blob/main/docs/resources/raspberry-pi-4-gpio-overview.png?raw=true)
+
+#### Connect the Scanner
+| Cable       | Color       |  Pin Number | Pin Name       |
+| ----------- | ----------- | ----------- | -------------- |
+| Power       | Red         | 1           | 3.3V Power     |
+| Ground      | Black       | 14          | Ground         |
+| MOSI        | Green       | 19          | GPIO 10 (MOSI) |
+| MISO        | Orange      | 21          | GPIO 9 (MISO)  |
+| RST         | Blue        | 22          | GPIO 25        |
+| SCK         | Light Brown | 23          | GPIO 11 (SCLK) |
+| SDA         | Dark Brown  | 24          | GPIO 8 (CE0)   |
+
+#### Connect the power button with LED
+| Cable       | Color    |  Pin Number | Pin Name      |
+| ----------- | -------- | ----------- | ------------- |
+| Power       | Red      | 8           | GPIO 14 (TXD) |
+| Ground      | Black    | 6           | Ground        |
+| LED         | Yellow   | 5           | GPIO 3 (SCL)  |
+| Ground      | Brown    | 9           | Ground        |
+
 ## Setup
 
 ### Raspberry Pi
-#### When writing the Raspberry OS
+#### When writing the Raspberry OS image
 - name the user `pi` as this will be used in most places of the service to reference resources
 - install Raspberry Pi OS based on Debian Bullseye
 
@@ -271,5 +295,5 @@ The important part to look for in the output is `Active: active (running)`.
 ## The Result
 
 ![GPIO Setup](https://github.com/dkiefner/pixiebox/blob/main/docs/resources/gpio.jpg?raw=true)
-![GPIO Setup](https://github.com/dkiefner/pixiebox/blob/main/docs/resources/lower.jpg?raw=true)
-![GPIO Setup](https://github.com/dkiefner/pixiebox/blob/main/docs/resources/upper.jpg?raw=true)
+![Raspberry Pi and Powerbank](https://github.com/dkiefner/pixiebox/blob/main/docs/resources/lower.jpg?raw=true)
+![Speakers and RFID Reader](https://github.com/dkiefner/pixiebox/blob/main/docs/resources/upper.jpg?raw=true)
