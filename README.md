@@ -19,7 +19,8 @@ The goal is to strip down the complex setup to very specific needs and requireme
 
 ### Raspberry Pi
 #### When writing the Raspberry OS
-Name the user `pi` as this will be used in most places of the service to reference resources.
+- name the user `pi` as this will be used in most places of the service to reference resources
+- install Raspberry Pi OS based on Debian Bullseye
 
 #### After installing the Raspberry OS
 One needs to change the following on the new boot partition:
