@@ -86,7 +86,7 @@ chmod +x ~/pixiebox/scripts/enable-power-led.sh; sudo ~/pixiebox/scripts/enable-
 
 To create a new RFID tag and associate audio files with it, do the following:
 
-- copy all audio files you want to play for a given RFID tag into `~/pixiebox/data/audio/rfid` on the Raspberry Pi (
+- copy all audio files you want to play for a given RFID tag into `~/pixiebox/data/audio/upload` on the Raspberry Pi (
   e.g.
   using `scp` or share the directory using Samba)
 - run the following script: `python3 ~/pixiebox/app/service/new_audio_tag.py` and it will do the magic
@@ -110,15 +110,15 @@ python3 ~/pixiebox/app/service/pixiebox.py
 This will run the PixieBox in an endless loop. To stop it, press `Ctrl + C` (which will kill the current running script)
 .
 
-### Upload audio files to the rfid folder of the PixieBox
+### Upload audio files to the upload folder of the PixieBox
 
 A simple tool to do the job is `scp` to transfer files from a Computer to the PixieBox. Here is an example to move all
-audio files from `~/Downloads/pixiebox-audio` on a Computer to the `rfid` folder of the PixieBox. Please
+audio files from `~/Downloads/pixiebox-audio` on a Computer to the upload folder of the PixieBox. Please
 replace `<pi-user>` with the actual username you used to set up the Raspberry Pi (usually this is `pi`) and `<pi-ip>`
 with the ip address of the Raspberry Pi in the local network (e.g. `192.168.0.1`):
 
 ```commandline
-scp -r ~/Downloads/pixiebox-audio <pi-user>@<pi-ip>:~/pixiebox/data/audio/rfid/
+scp -r ~/Downloads/pixiebox-audio <pi-user>@<pi-ip>:~/pixiebox/data/audio/upload/
 ```
 
 Note: It is important to use the `-r` parameter to move every file in a directory to its destination as all as having
